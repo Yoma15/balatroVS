@@ -28,10 +28,10 @@ namespace BadBalatro
             }
         }
 
-        public void moveToHand(int index)
+        public void moveTolist(int index,List<string> originList, List<string> destinationList)
         {
-            hand.Add(deck[index]);
-            deck.RemoveAt(index);
+            destinationList.Add(originList[index]);
+            originList.RemoveAt(index);
 
 
         }
@@ -122,7 +122,7 @@ namespace BadBalatro
             deck = shuffle(deck,4);
             for (int i = 0; i < maxCards; i++)
             {
-                moveToHand(i);
+                moveTolist(i,deck,hand);
                 updateBox(handListBox, hand);
                 updateBox(deckListBox, deck);
                 //handListBox.Items.Add(hand[i]);
