@@ -19,6 +19,10 @@ namespace BadBalatro
         //how many chips the player will get when scored
         private int chipAmount;
 
+        private bool willScore = false;
+
+        
+
         
 
 

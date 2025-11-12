@@ -123,7 +123,7 @@ namespace BadBalatro
 
             for (int x = 0; x < shuffleValue; x++)
             {
-               
+
                 for (int i = 0; i < list.Count; i++)
                 {
                     //chooses a random index that list[i] will switch with 
@@ -450,10 +450,14 @@ namespace BadBalatro
             }
         }
 
-        
+        private void label2_Click_1(object sender, EventArgs e)
+        {
 
-        
+        }
 
-        
+        private void label2_ChangeUICues(object sender, UICuesEventArgs e)
+        {
+
+        }
     }
 }

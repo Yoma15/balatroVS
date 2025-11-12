@@ -42,6 +42,7 @@
             cardBox7 = new PictureBox();
             cardBox6 = new PictureBox();
             cardBox5 = new PictureBox();
+            targetBind = new Label();
             ((System.ComponentModel.ISupportInitialize)cardBox0).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox4).BeginInit();
@@ -108,7 +109,7 @@
             // playlabel
             // 
             playlabel.AutoSize = true;
-            playlabel.Location = new Point(32, 164);
+            playlabel.Location = new Point(62, 165);
             playlabel.Name = "playlabel";
             playlabel.Size = new Size(57, 25);
             playlabel.TabIndex = 5;
@@ -118,7 +119,7 @@
             // discardLabel
             // 
             discardLabel.AutoSize = true;
-            discardLabel.Location = new Point(160, 164);
+            discardLabel.Location = new Point(190, 165);
             discardLabel.Name = "discardLabel";
             discardLabel.Size = new Size(83, 25);
             discardLabel.TabIndex = 6;
@@ -197,11 +198,23 @@
             cardBox5.TabStop = false;
             cardBox5.Click += cardBox5_Click;
             // 
+            // targetBind
+            // 
+            targetBind.AutoSize = true;
+            targetBind.Location = new Point(62, 57);
+            targetBind.Name = "targetBind";
+            targetBind.Size = new Size(166, 25);
+            targetBind.TabIndex = 13;
+            targetBind.Text = "Round Target Bind: ";
+            targetBind.Click += label2_Click_1;
+            targetBind.ChangeUICues += label2_ChangeUICues;
+            // 
             // BadBalatro
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(896, 545);
+            Controls.Add(targetBind);
             Controls.Add(cardBox1);
             Controls.Add(cardBox7);
             Controls.Add(cardBox6);
@@ -246,5 +259,6 @@
         private PictureBox cardBox7;
         private PictureBox cardBox6;
         private PictureBox cardBox5;
+        private Label targetBind;
     }
 }
