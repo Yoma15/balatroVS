@@ -9,22 +9,33 @@ namespace BadBalatro
 {
     internal class Card
     {
-        private int value;
+        //the number on the card
+        private int number;
+        //the suite of the card
         private string suite;
+
+        //if the card is currenlty selected to be apart of play
         private bool isSelected;
+        //how many chips the player will get when scored
+        private int chipAmount;
 
         
 
 
         public void card(int Value,string Suite)
         {
-            value = Value;
+            number = Value;
             suite = Suite;
         }
 
-       public void setValue(int Value)
+       public void setNumber(int Number)
         {
-            value = Value;
+            number = Number;
+            if(number == 10 || number == 11 || number == 12)
+            {
+                chipAmount = 13;
+            }
+            chipAmount = number;
         }
         public void setSuite(string Suite)
         {
@@ -38,7 +49,9 @@ namespace BadBalatro
             
         }
 
-        public int getValue() {return value;}
+        public int getNumber() {return number; }
+
+        public int getChipAmount() { return chipAmount;}
 
         public string getSuite() { return suite;}
 
