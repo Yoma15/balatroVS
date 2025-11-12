@@ -30,6 +30,13 @@ namespace BadBalatro
         {
             suite = Suite;
         }
+        public void setIsSelected(bool selected)
+        {
+                isSelected = selected;
+           // MessageBox.Show(isSelected.ToString());
+
+            
+        }
 
         public int getValue() {return value;}
 
