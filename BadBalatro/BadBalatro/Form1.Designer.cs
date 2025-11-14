@@ -42,7 +42,9 @@
             cardBox7 = new PictureBox();
             cardBox6 = new PictureBox();
             cardBox5 = new PictureBox();
-            targetBind = new Label();
+            targetBindLabel = new Label();
+            chipLabel = new Label();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)cardBox0).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox4).BeginInit();
@@ -59,7 +61,7 @@
             cardBox0.Location = new Point(62, 237);
             cardBox0.Margin = new Padding(2);
             cardBox0.Name = "cardBox0";
-            cardBox0.Size = new Size(78, 87);
+            cardBox0.Size = new Size(82, 120);
             cardBox0.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox0.TabIndex = 0;
             cardBox0.TabStop = false;
@@ -68,10 +70,10 @@
             // cardBox2
             // 
             cardBox2.Image = (Image)resources.GetObject("cardBox2.Image");
-            cardBox2.Location = new Point(261, 237);
+            cardBox2.Location = new Point(257, 237);
             cardBox2.Margin = new Padding(2);
             cardBox2.Name = "cardBox2";
-            cardBox2.Size = new Size(78, 87);
+            cardBox2.Size = new Size(82, 120);
             cardBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox2.TabIndex = 1;
             cardBox2.TabStop = false;
@@ -81,16 +83,17 @@
             // 
             deckListBox.FormattingEnabled = true;
             deckListBox.ItemHeight = 25;
-            deckListBox.Location = new Point(704, 32);
+            deckListBox.Location = new Point(729, 57);
             deckListBox.Name = "deckListBox";
-            deckListBox.Size = new Size(180, 379);
+            deckListBox.Size = new Size(180, 304);
             deckListBox.TabIndex = 2;
+            deckListBox.SelectedIndexChanged += deckListBox_SelectedIndexChanged;
             // 
             // handListBox
             // 
             handListBox.FormattingEnabled = true;
             handListBox.ItemHeight = 25;
-            handListBox.Location = new Point(540, 57);
+            handListBox.Location = new Point(540, 70);
             handListBox.Name = "handListBox";
             handListBox.SelectionMode = SelectionMode.MultiSimple;
             handListBox.Size = new Size(146, 354);
@@ -128,10 +131,10 @@
             // cardBox4
             // 
             cardBox4.Image = (Image)resources.GetObject("cardBox4.Image");
-            cardBox4.Location = new Point(62, 365);
+            cardBox4.Location = new Point(62, 390);
             cardBox4.Margin = new Padding(2);
             cardBox4.Name = "cardBox4";
-            cardBox4.Size = new Size(78, 87);
+            cardBox4.Size = new Size(82, 120);
             cardBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox4.TabIndex = 8;
             cardBox4.TabStop = false;
@@ -140,10 +143,10 @@
             // cardBox3
             // 
             cardBox3.Image = (Image)resources.GetObject("cardBox3.Image");
-            cardBox3.Location = new Point(352, 237);
+            cardBox3.Location = new Point(348, 237);
             cardBox3.Margin = new Padding(2);
             cardBox3.Name = "cardBox3";
-            cardBox3.Size = new Size(78, 87);
+            cardBox3.Size = new Size(82, 120);
             cardBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox3.TabIndex = 7;
             cardBox3.TabStop = false;
@@ -153,10 +156,10 @@
             // 
             cardBox1.BackColor = SystemColors.Control;
             cardBox1.Image = (Image)resources.GetObject("cardBox1.Image");
-            cardBox1.Location = new Point(165, 237);
+            cardBox1.Location = new Point(161, 237);
             cardBox1.Margin = new Padding(2);
             cardBox1.Name = "cardBox1";
-            cardBox1.Size = new Size(78, 87);
+            cardBox1.Size = new Size(82, 120);
             cardBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox1.TabIndex = 12;
             cardBox1.TabStop = false;
@@ -165,10 +168,10 @@
             // cardBox7
             // 
             cardBox7.Image = (Image)resources.GetObject("cardBox7.Image");
-            cardBox7.Location = new Point(352, 365);
+            cardBox7.Location = new Point(348, 390);
             cardBox7.Margin = new Padding(2);
             cardBox7.Name = "cardBox7";
-            cardBox7.Size = new Size(78, 87);
+            cardBox7.Size = new Size(82, 120);
             cardBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox7.TabIndex = 11;
             cardBox7.TabStop = false;
@@ -177,10 +180,10 @@
             // cardBox6
             // 
             cardBox6.Image = (Image)resources.GetObject("cardBox6.Image");
-            cardBox6.Location = new Point(261, 365);
+            cardBox6.Location = new Point(257, 390);
             cardBox6.Margin = new Padding(2);
             cardBox6.Name = "cardBox6";
-            cardBox6.Size = new Size(78, 87);
+            cardBox6.Size = new Size(82, 120);
             cardBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox6.TabIndex = 10;
             cardBox6.TabStop = false;
@@ -189,32 +192,53 @@
             // cardBox5
             // 
             cardBox5.Image = (Image)resources.GetObject("cardBox5.Image");
-            cardBox5.Location = new Point(165, 365);
+            cardBox5.Location = new Point(161, 390);
             cardBox5.Margin = new Padding(2);
             cardBox5.Name = "cardBox5";
-            cardBox5.Size = new Size(78, 87);
+            cardBox5.Size = new Size(82, 120);
             cardBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox5.TabIndex = 9;
             cardBox5.TabStop = false;
             cardBox5.Click += cardBox5_Click;
             // 
-            // targetBind
+            // targetBindLabel
             // 
-            targetBind.AutoSize = true;
-            targetBind.Location = new Point(62, 57);
-            targetBind.Name = "targetBind";
-            targetBind.Size = new Size(166, 25);
-            targetBind.TabIndex = 13;
-            targetBind.Text = "Round Target Bind: ";
-            targetBind.Click += label2_Click_1;
-            targetBind.ChangeUICues += label2_ChangeUICues;
+            targetBindLabel.AutoSize = true;
+            targetBindLabel.Location = new Point(62, 32);
+            targetBindLabel.Name = "targetBindLabel";
+            targetBindLabel.Size = new Size(166, 25);
+            targetBindLabel.TabIndex = 13;
+            targetBindLabel.Text = "Round Target Bind: ";
+            targetBindLabel.Click += label2_Click_1;
+            targetBindLabel.ChangeUICues += label2_ChangeUICues;
+            // 
+            // chipLabel
+            // 
+            chipLabel.AutoSize = true;
+            chipLabel.Location = new Point(62, 70);
+            chipLabel.Name = "chipLabel";
+            chipLabel.Size = new Size(116, 25);
+            chipLabel.TabIndex = 14;
+            chipLabel.Text = "Current chips";
+            chipLabel.Click += chipLabel_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(348, 165);
+            label2.Name = "label2";
+            label2.Size = new Size(116, 25);
+            label2.TabIndex = 15;
+            label2.Text = "current hand:";
             // 
             // BadBalatro
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(896, 545);
-            Controls.Add(targetBind);
+            ClientSize = new Size(913, 611);
+            Controls.Add(label2);
+            Controls.Add(chipLabel);
+            Controls.Add(targetBindLabel);
             Controls.Add(cardBox1);
             Controls.Add(cardBox7);
             Controls.Add(cardBox6);
@@ -259,6 +283,8 @@
         private PictureBox cardBox7;
         private PictureBox cardBox6;
         private PictureBox cardBox5;
-        private Label targetBind;
+        private Label targetBindLabel;
+        private Label chipLabel;
+        private Label label2;
     }
 }

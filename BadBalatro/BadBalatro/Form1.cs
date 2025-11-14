@@ -1,3 +1,6 @@
+using System.Linq.Expressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 namespace BadBalatro
 {
     public partial class BadBalatro : Form
@@ -5,7 +8,7 @@ namespace BadBalatro
 
         List<string> deck = new List<string>();
         List<string> hand = new List<string>();
-
+        bool deselecting = false;
         //holds all the card class instances in one list
         //to acess a element from a card For example the suite use cards[i].getSuite() with i being the index;
         List<Card> cards = new List<Card>();
@@ -252,8 +255,6 @@ namespace BadBalatro
         private void cardBox1_Click(object sender, EventArgs e)
         {
             int x = 1;
-            //toggle selection 
-            //if its not selected
             if (cards[x].getIsSelected() == false)
             {
                 if (getSelected() < maxSelection)
@@ -274,6 +275,8 @@ namespace BadBalatro
                 cards[x].setIsSelected(false);
                 cardBox1.BackColor = Color.White;
             }
+
+
         }
 
         /*for (int i = 0; i < cards.Count; i++)
@@ -288,7 +291,6 @@ namespace BadBalatro
             int x = 2;
 
 
-            //clean this up into one function
 
             //toggle selection 
             //if its not selected
@@ -426,6 +428,8 @@ namespace BadBalatro
         private void cardBox7_Click(object sender, EventArgs e)
         {
             int x = 7;
+
+
             //toggle selection 
             //if its not selected
             if (cards[x].getIsSelected() == false)
@@ -456,6 +460,21 @@ namespace BadBalatro
         }
 
         private void label2_ChangeUICues(object sender, UICuesEventArgs e)
+        {
+
+        }
+
+        private void deckListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chipLabel_Click(object sender, EventArgs e)
         {
 
         }
