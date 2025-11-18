@@ -174,7 +174,7 @@ namespace BadBalatro
             {
                 //local variable to store the suite and number 
                 // the first element is the  suite and the second element is the number
-                string[] split = handListBox.Items[i].ToString().Split(",");
+                string[] split = hand[i].ToString().Split(",");
 
                 //sets the suite
                 cards[i].setSuite(split[0]);
@@ -338,6 +338,7 @@ namespace BadBalatro
                         cards[index].setIsSelected(true);
 
                         cardPictureBoxes[index].BackColor = Color.Blue;
+                        MessageBox.Show(cards[index].getCardString());
                         selectedCards.Add(cards[index]);
 
 
@@ -420,17 +421,15 @@ namespace BadBalatro
                     selectedCards[i].setIsSelected(false);
 
                     string x = selectedCards[i].getSuite() + "," + selectedCards[i].getNumber().ToString();
+                    MessageBox.Show(x);
                     int y = hand.IndexOf(x);
                     moveTolist(y, hand, discardPile);
                     //draw new cards
                     hand.Insert(y, deck[0]);
                     deck.RemoveAt(0);
-                    
-
-                    updateCardClasses();
                     updateBox(deckListBox, deck);
                     updateBox(handListBox, hand);
-                    
+                    updateCardClasses();
 
                 }
                 selectedCards.Clear();
