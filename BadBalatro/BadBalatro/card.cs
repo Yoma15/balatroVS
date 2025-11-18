@@ -14,6 +14,7 @@ namespace BadBalatro
         //the suite of the card
         private string suite;
 
+        private PictureBox cardPictureBox;
         //if the card is currenlty selected to be apart of play
         private bool isSelected;
         //how many chips the player will get when scored
@@ -25,8 +26,9 @@ namespace BadBalatro
 
         
 
+        public Card() { }
 
-        public void card(int Value,string Suite)
+        public Card(string Suite, int Value)
         {
             number = Value;
             suite = Suite;
@@ -52,6 +54,18 @@ namespace BadBalatro
 
             
         }
+        public void setPictureBox(PictureBox box)
+        {
+            cardPictureBox = box;
+            // MessageBox.Show(isSelected.ToString());
+
+
+        }
+
+
+
+
+        public PictureBox GetPictureBox() { return cardPictureBox; }
 
         public int getNumber() {return number; }
 
@@ -60,6 +74,12 @@ namespace BadBalatro
         public string getSuite() { return suite;}
 
         public bool getIsSelected() { return isSelected;}
+
+        public string getCardString()
+        {
+
+            return suite + "," +  number.ToString();
+        }
 
 
 

@@ -1,14 +1,19 @@
+using System;
 using System.Linq.Expressions;
+using System.Xml.Linq;
+using Microsoft.VisualBasic.ApplicationServices;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BadBalatro
 {
     public partial class BadBalatro : Form
     {
-
         List<string> deck = new List<string>();
         List<string> hand = new List<string>();
+        List<PictureBox> cardPictureBoxes = new List<PictureBox>();
+        List<Card> selectedCards = new List<Card>();
         bool deselecting = false;
+
         //holds all the card class instances in one list
         //to acess a element from a card For example the suite use cards[i].getSuite() with i being the index;
         List<Card> cards = new List<Card>();
@@ -17,8 +22,39 @@ namespace BadBalatro
         int maxCards = 8;
         //the max amount of cards that can be selected
         int maxSelection = 5;
+        bool canSelect = true;
         //still need to integrate a max selection for the list box
 
+        int plays = 4;
+        int discards = 4;
+
+        //Function called as it loads for the user 
+        private void BadBalatro_Load(object sender, EventArgs e)
+        {
+            intializeDeck();
+            cardPictureBoxes.Add(cardBox0); cardPictureBoxes.Add(cardBox1); cardPictureBoxes.Add(cardBox2); cardPictureBoxes.Add(cardBox3); cardPictureBoxes.Add(cardBox4); cardPictureBoxes.Add(cardBox5); cardPictureBoxes.Add(cardBox6); cardPictureBoxes.Add(cardBox7);
+
+
+            playlabel.Text = "plays: " + plays.ToString();
+            discardLabel.Text = "discards: " + discards.ToString();
+
+
+            deck = shuffle(deck, 4);
+            for (int i = 0; i < maxCards; i++)
+            {
+                moveTolist(i, deck, hand);
+                updateBox(handListBox, hand);
+                updateBox(deckListBox, deck);
+                //handListBox.Items.Add(hand[i]);
+            }
+            for (int i = 0; i < maxCards; i++)
+            {
+                cards.Add(new Card());
+                cards[i].setPictureBox(cardPictureBoxes[i]);
+            }
+            updateCardClasses();
+
+        }
 
 
 
@@ -51,11 +87,7 @@ namespace BadBalatro
         {
             destinationList.Add(originList[index]);
             originList.RemoveAt(index);
-
-
         }
-
-
         //adds all 52 cards to the deck 
         public void intializeDeck()
         {
@@ -87,32 +119,14 @@ namespace BadBalatro
                 {
                     deck.Add(currentSuite + "," + y);
                     currentIndex++;
-
-
-
-
                 }
             }
 
         }
 
-        //returns the amount of cards that are currently selected 
-        int getSelected()
-        {
-            int x = 0;
-            for (int i = 0; i < cards.Count; i++)
-            {
-                //If the card is selected add it to a counter
-                if (cards[i].getIsSelected())
-                {
-                    x++;
-                }
 
 
-            }
-            return x;
 
-        }
 
         //Shuffles and returns a list that you give it. Shuffle Value is how many times the program will shuffle the list
         //use by making the list eual it like so, deckList = shuffle(deckList,2)
@@ -126,7 +140,6 @@ namespace BadBalatro
 
             for (int x = 0; x < shuffleValue; x++)
             {
-
                 for (int i = 0; i < list.Count; i++)
                 {
                     //chooses a random index that list[i] will switch with 
@@ -143,13 +156,10 @@ namespace BadBalatro
             return list;
         }
 
-
         public BadBalatro()
         {
             InitializeComponent();
         }
-
-
 
         //Makes the card classes match with the deck List and layout  
         //call this anytime a card is getting played/discared so the new ones will take there place
@@ -171,315 +181,249 @@ namespace BadBalatro
         }
 
 
-        //Function called before as it loads for the user 
-        private void BadBalatro_Load(object sender, EventArgs e)
-        {
-            intializeDeck();
 
-            deck = shuffle(deck, 4);
-            for (int i = 0; i < maxCards; i++)
+
+        string scoringFramework(List<Card> values)
+        {
+            string a = "";
+            string currentSuite;
+            string[] split;
+            int count = 0;
+            List<Card> scoringCards = new List<Card>();
+            scoringCards = values;
+
+            //scoringCards = selectedCards;
+
+
+
+
+            scoringCards.Sort((x, y) => x.getNumber().CompareTo(y.getNumber()));
+
+            string temp = "";
+            for (int i = 0; i < scoringCards.Count; i++)
             {
-                moveTolist(i, deck, hand);
-                updateBox(handListBox, hand);
-                updateBox(deckListBox, deck);
-                //handListBox.Items.Add(hand[i]);
+                temp += scoringCards[i].getSuite() + "," + scoringCards[i].getNumber().ToString() + " ";
             }
-            for (int i = 0; i < maxCards; i++)
+            MessageBox.Show(temp);
+
+
+
+            //straight flush 
+            for (int i = 1; i < scoringCards.Count; i++)
+            {   // check for a straight
+                if (scoringCards[i].getNumber() == scoringCards[i - 1].getNumber() + 1
+                    //check for flush
+                    && scoringCards[0].getSuite() == scoringCards[i].getSuite())
+                {
+                    count++;
+                }
+                if (count == 4)
+                {
+                    return "streight flush";
+                }
+            }
+
+            //four of a kind
+            temp = "";
+            count = 0;
+            //ref 
+            if (scoringCards.Count >= 4)
             {
-                cards.Add(new Card());
+                for (int x = 0; x < 2; x++)
+                {
+
+                    for (int y = 0; y < scoringCards.Count; y++)
+                    {
+                        if (scoringCards[x].getNumber() == scoringCards[y].getNumber())
+                        {
+                            count++;
+                        }
+                    }
+                    
+                    if (count == 4)
+                    { return "four of a kind"; }
+                    else { count = 0; }
+
+                }
             }
-            updateCardClasses();
 
 
+
+            //full house
+            int CountX=0;
+            int CountY=0;
+            count = 0;
+            int z = 0;
+            if (scoringCards.Count >= 5)
+            {
+                for (int x = 0; x < 2; x++)
+                {
+                    
+
+                    for (int y = 0; y < scoringCards.Count; y++)
+                    {
+                        if (x == 0)
+                        {
+                            z = x;
+                        }
+                        if (scoringCards[z].getNumber() == scoringCards[y].getNumber())
+                        {
+                            count++;
+                        }
+                    }
+                    if (x == 0)
+                    {
+                        CountX = count;
+                        count = 0;
+                        z = scoringCards.Count - 1;
+                        MessageBox.Show("x " + CountX.ToString());
+                    }
+                    else
+                    { CountY = count;
+                        count = 0;
+                        MessageBox.Show("y " + CountY.ToString());
+                    }
+
+
+                }
+                if ((CountX == 3 && CountY == 2) || (CountX == 2 && CountY == 3)){
+                    return "full house";
+                }
+            }
+            //flush
+
+            //straight
+
+            //three of a kind
+
+            //two pair
+
+            //pair 
+
+            //high card
+            return "highCard";
 
 
         }
-
-        private void label1_Click(object sender, EventArgs e)
+        private void playButton_click(object sender, EventArgs e)
         {
+            if (selectedCards.Count > 0)
+            {
+                playButton.Enabled = false;
+                canSelect = false;
+                plays--;
+                playlabel.Text = "plays: " + plays.ToString();
+
+                //discard cards that dont go towards scoring 
 
 
+            }
         }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-
-
-
-
 
 
         // Card clicking and selection  handling
-        // I NEED TO CLEAN THIS UP -BEN 
+        void cardSelection(int index)
+        {
+            if (canSelect)
+            {
+                if (cards[index].getIsSelected() == false)
+                {
+                    if (selectedCards.Count < maxSelection)
+                    {
 
+                        cards[index].setIsSelected(true);
+
+                        cardPictureBoxes[index].BackColor = Color.Blue;
+                        selectedCards.Add(cards[index]);
+
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Only 5 cards can be selected at a time");
+                    }
+                }
+                //if it is selected 
+                else if (cards[index].getIsSelected() == true)
+                {
+                    cards[index].setIsSelected(false);
+                    cardPictureBoxes[index].BackColor = Color.White;
+                    selectedCards.Remove(cards[index]);
+
+                }
+            }
+        }
 
         private void cardBox0_Click(object sender, EventArgs e)
         {
-            //the box number 
-            int x = 0;
+            cardSelection(0);
 
-
-            //clean this up into one function
-
-            //toggle selection 
-            //if its not selected
-            if (cards[x].getIsSelected() == false)
-            {
-                if (getSelected() < maxSelection)
-                {
-
-                    cards[x].setIsSelected(true);
-
-                    cardBox0.BackColor = Color.Blue;
-                }
-                else
-                {
-                    MessageBox.Show("Only 5 cards can be selected at a time");
-                }
-            }
-            //if it is selected 
-            else if (cards[x].getIsSelected() == true)
-            {
-                //MessageBox.Show("test");
-                cards[x].setIsSelected(false);
-                cardBox0.BackColor = Color.White;
-            }
         }
-
 
         private void cardBox1_Click(object sender, EventArgs e)
         {
-            int x = 1;
-            if (cards[x].getIsSelected() == false)
-            {
-                if (getSelected() < maxSelection)
-                {
-
-                    cards[x].setIsSelected(true);
-
-                    cardBox1.BackColor = Color.Blue;
-                }
-                else
-                {
-                    MessageBox.Show("Only 5 cards can be selected at a time");
-                }
-            }
-            //if it is selected 
-            else if (cards[x].getIsSelected() == true)
-            {
-                cards[x].setIsSelected(false);
-                cardBox1.BackColor = Color.White;
-            }
-
-
+            cardSelection(1);
         }
 
-        /*for (int i = 0; i < cards.Count; i++)
-           {
 
-               MessageBox.Show("suite " + cards[i].getSuite().ToString() + " value " + cards[i].getValue().ToString());
-
-           } */
 
         private void cardBox2_Click(object sender, EventArgs e)
         {
-            int x = 2;
-
-
-
-            //toggle selection 
-            //if its not selected
-            if (cards[x].getIsSelected() == false)
-            {
-                if (getSelected() < maxSelection)
-                {
-
-                    cards[x].setIsSelected(true);
-
-                    cardBox2.BackColor = Color.Blue;
-                }
-                else
-                {
-                    MessageBox.Show("Only 5 cards can be selected at a time");
-                }
-            }
-            //if it is selected 
-            else if (cards[x].getIsSelected() == true)
-            {
-                cards[x].setIsSelected(false);
-                cardBox2.BackColor = Color.White;
-            }
+            cardSelection(2);
         }
-
 
         private void cardBox3_Click(object sender, EventArgs e)
         {
-            int x = 3;
-            //toggle selection 
-            //if its not selected
-            if (cards[x].getIsSelected() == false)
-            {
-                if (getSelected() < maxSelection)
-                {
-
-                    cards[x].setIsSelected(true);
-
-                    cardBox3.BackColor = Color.Blue;
-                }
-                else
-                {
-                    MessageBox.Show("Only 5 cards can be selected at a time");
-                }
-            }
-            //if it is selected 
-            else if (cards[x].getIsSelected() == true)
-            {
-                cards[x].setIsSelected(false);
-                cardBox3.BackColor = Color.White;
-            }
+            cardSelection(3);
         }
 
         private void cardBox4_Click(object sender, EventArgs e)
         {
-            int x = 4;
-            //toggle selection 
-            //if its not selected
-            if (cards[x].getIsSelected() == false)
-            {
-                if (getSelected() < maxSelection)
-                {
-
-                    cards[x].setIsSelected(true);
-
-                    cardBox4.BackColor = Color.Blue;
-                }
-                else
-                {
-                    MessageBox.Show("Only 5 cards can be selected at a time");
-                }
-            }
-            //if it is selected 
-            else if (cards[x].getIsSelected() == true)
-            {
-                cards[x].setIsSelected(false);
-                cardBox4.BackColor = Color.White;
-            }
+            cardSelection(4);
         }
 
         private void cardBox5_Click(object sender, EventArgs e)
         {
-            int x = 5;
-            //toggle selection 
-            //if its not selected
-            if (cards[x].getIsSelected() == false)
-            {
-                if (getSelected() < maxSelection)
-                {
-
-                    cards[x].setIsSelected(true);
-
-                    cardBox5.BackColor = Color.Blue;
-                }
-                else
-                {
-                    MessageBox.Show("Only 5 cards can be selected at a time");
-                }
-            }
-            //if it is selected 
-            else if (cards[x].getIsSelected() == true)
-            {
-                cards[x].setIsSelected(false);
-                cardBox5.BackColor = Color.White;
-            }
+            cardSelection(5);
         }
 
         private void cardBox6_Click(object sender, EventArgs e)
         {
-            int x = 6;
-            //toggle selection 
-            //if its not selected
-            if (cards[x].getIsSelected() == false)
-            {
-                if (getSelected() < maxSelection)
-                {
-
-                    cards[x].setIsSelected(true);
-
-                    cardBox6.BackColor = Color.Blue;
-                }
-                else
-                {
-                    MessageBox.Show("Only 5 cards can be selected at a time");
-                }
-            }
-            //if it is selected 
-            else if (cards[x].getIsSelected() == true)
-            {
-                cards[x].setIsSelected(false);
-                cardBox6.BackColor = Color.White;
-            }
+            cardSelection(6);
         }
 
         private void cardBox7_Click(object sender, EventArgs e)
         {
-            int x = 7;
-
-
-            //toggle selection 
-            //if its not selected
-            if (cards[x].getIsSelected() == false)
-            {
-                if (getSelected() < maxSelection)
-                {
-
-                    cards[x].setIsSelected(true);
-
-                    cardBox7.BackColor = Color.Blue;
-                }
-                else
-                {
-                    MessageBox.Show("Only 5 cards can be selected at a time");
-                }
-            }
-            //if it is selected 
-            else if (cards[x].getIsSelected() == true)
-            {
-                cards[x].setIsSelected(false);
-                cardBox7.BackColor = Color.White;
-            }
+            cardSelection(7);
         }
 
-        private void label2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_ChangeUICues(object sender, UICuesEventArgs e)
-        {
-
-        }
-
-        private void deckListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chipLabel_Click(object sender, EventArgs e)
+        private void discardButton_Click(object sender, EventArgs e)
         {
 
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+            string[] split = testBox.Text.Split(',');
+
+            Card c1 = new Card(split[0], int.Parse(split[1]));
+            split = textBox1.Text.Split(","); 
+            Card c2 = new Card(split[0], int.Parse(split[1]));
+            split = textBox2.Text.Split(",");
+            Card c3 = new Card(split[0], int.Parse(split[1]));
+            split = textBox3.Text.Split(",");
+            Card c4 = new Card(split[0], int.Parse(split[1]));
+            split = textBox4.Text.Split(",");
+            Card c5 = new Card(split[0], int.Parse(split[1]));
+            List<Card> C = new List<Card>() { c1, c2, c3, c4, c5 };
+            handLabel.Text = scoringFramework(C);
+
+
+
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
