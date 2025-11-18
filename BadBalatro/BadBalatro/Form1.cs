@@ -1,7 +1,9 @@
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Windows.Forms;
 using System.Xml.Linq;
-using Microsoft.VisualBasic.ApplicationServices;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BadBalatro
@@ -10,8 +12,10 @@ namespace BadBalatro
     {
         List<string> deck = new List<string>();
         List<string> hand = new List<string>();
+        List<string> discardPile = new List<string>();
         List<PictureBox> cardPictureBoxes = new List<PictureBox>();
         List<Card> selectedCards = new List<Card>();
+        
         bool deselecting = false;
 
         //holds all the card class instances in one list
@@ -400,6 +404,41 @@ namespace BadBalatro
         private void discardButton_Click(object sender, EventArgs e)
         {
 
+            
+            discardPile.ToList().ForEach(Console.WriteLine);
+            if (discards > 0)
+            {
+                discards = discards - 1;
+                discardLabel.Text = "discards: " + discards.ToString();
+
+
+
+                for (int i = 0; i < selectedCards.Count; i++)
+                {
+                    selectedCards[i].GetPictureBox().BackColor = Color.Transparent;
+
+                    selectedCards[i].setIsSelected(false);
+
+                    string x = selectedCards[i].getSuite() + "," + selectedCards[i].getNumber().ToString();
+                    int y = hand.IndexOf(x);
+                    moveTolist(y, hand, discardPile);
+                    //draw new cards
+                    hand.Insert(y, deck[0]);
+                    deck.RemoveAt(0);
+                    
+
+                    updateCardClasses();
+                    updateBox(deckListBox, deck);
+                    updateBox(handListBox, hand);
+                    
+
+                }
+                selectedCards.Clear();
+            }
+            else
+            {
+                MessageBox.Show("No more discards left", "No Discards");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -425,7 +464,7 @@ namespace BadBalatro
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
     }
 }
