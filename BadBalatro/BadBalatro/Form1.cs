@@ -31,8 +31,25 @@ namespace BadBalatro
 
         int plays = 4;
         int discards = 4;
+        int round = 1;
+        int chips = 0;
+        int targetChip;
+        
+
+        
+        public int calculatetargetChip()
+        {
+            int currentChips = 0;
+
+            currentChips = 150 + (150*round);
+            //For each round, 150 points is added, and the round level is * by round #
+            return currentChips;
+
+            
+        }
 
         //Function called as it loads for the user 
+
         private void BadBalatro_Load(object sender, EventArgs e)
         {
             intializeDeck();
@@ -41,6 +58,7 @@ namespace BadBalatro
 
             playlabel.Text = "plays: " + plays.ToString();
             discardLabel.Text = "discards: " + discards.ToString();
+            targetChip = calculatetargetChip();
 
 
             deck = shuffle(deck, 4);
@@ -340,10 +358,12 @@ namespace BadBalatro
                 canSelect = false;
                 plays--;
                 playlabel.Text = "plays: " + plays.ToString();
-
                 //discard cards that dont go towards scoring 
 
-
+               //targetChip = calculatetargetChip();
+               //round ends when player reaches goal points
+               //when play button is clicked, everything will be run. We will need  to double check the logic of a player wining a round
+                
             }
         }
 
