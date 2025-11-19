@@ -187,43 +187,41 @@ namespace BadBalatro
 
 
 
-        string scoringFramework(List<Card> values)
+        string scoringFramework()
         {
             string a = "";
             string currentSuite;
             string[] split;
             int count = 0;
-            List<Card> scoringCards = new List<Card>();
-            scoringCards = values;
 
-            //scoringCards = selectedCards;
+            //cards = selectedCards;
 
 
 
 
-            scoringCards.Sort((x, y) => x.getNumber().CompareTo(y.getNumber()));
+            cards.Sort((x, y) => x.getNumber().CompareTo(y.getNumber()));
 
             string temp = "";
-            for (int i = 0; i < scoringCards.Count; i++)
+            for (int i = 0; i < cards.Count; i++)
             {
-                temp += scoringCards[i].getSuite() + "," + scoringCards[i].getNumber().ToString() + " ";
+                temp += cards[i].getSuite() + "," + cards[i].getNumber().ToString() + " ";
             }
             MessageBox.Show(temp);
 
 
 
             //straight flush 
-            for (int i = 1; i < scoringCards.Count; i++)
+            for (int i = 1; i < cards.Count; i++)
             {   // check for a straight
-                if (scoringCards[i].getNumber() == scoringCards[i - 1].getNumber() + 1
+                if (cards[i].getNumber() == cards[i - 1].getNumber() + 1
                     //check for flush
-                    && scoringCards[0].getSuite() == scoringCards[i].getSuite())
+                    && cards[0].getSuite() == cards[i].getSuite())
                 {
                     count++;
                 }
                 if (count == 4)
                 {
-                    return "streight flush";
+                    return "straight flush";
                 }
             }
 
@@ -231,16 +229,17 @@ namespace BadBalatro
             temp = "";
             count = 0;
             //ref 
-            if (scoringCards.Count >= 4)
+            if (cards.Count >= 4)
             {
                 for (int x = 0; x < 2; x++)
                 {
 
-                    for (int y = 0; y < scoringCards.Count; y++)
+                    for (int y = 0; y < cards.Count; y++)
                     {
-                        if (scoringCards[x].getNumber() == scoringCards[y].getNumber())
+                        if (cards[x].getNumber() == cards[y].getNumber())
                         {
                             count++;
+
                         }
                     }
                     
@@ -258,19 +257,19 @@ namespace BadBalatro
             int CountY=0;
             count = 0;
             int z = 0;
-            if (scoringCards.Count >= 5)
+            if (cards.Count >= 5)
             {
                 for (int x = 0; x < 2; x++)
                 {
                     
 
-                    for (int y = 0; y < scoringCards.Count; y++)
+                    for (int y = 0; y < cards.Count; y++)
                     {
                         if (x == 0)
                         {
                             z = x;
                         }
-                        if (scoringCards[z].getNumber() == scoringCards[y].getNumber())
+                        if (cards[z].getNumber() == cards[y].getNumber())
                         {
                             count++;
                         }
@@ -279,7 +278,7 @@ namespace BadBalatro
                     {
                         CountX = count;
                         count = 0;
-                        z = scoringCards.Count - 1;
+                        z = cards.Count - 1;
                         MessageBox.Show("x " + CountX.ToString());
                     }
                     else
@@ -295,14 +294,37 @@ namespace BadBalatro
                 }
             }
             //flush
+            for (int i = 1; i < cards.Count; i++)
+            {   // check for a straight
+                if (cards[0].getSuite() == cards[i].getSuite())
+                {
+                    count++;
+                }
+                if (count == 4)
+                {
+                    return "flush";
+                }
+            }
 
             //straight
-
+            for (int i = 1; i < cards.Count; i++)
+            {   // check for a straight
+                if (cards[i].getNumber() == cards[i - 1].getNumber() + 1)
+                    //check for flush
+                {
+                    count++;
+                }
+                if (count == 4)
+                {
+                    return "straight";
+                }
+            }
             //three of a kind
 
             //two pair
 
             //pair 
+
 
             //high card
             return "highCard";
@@ -442,19 +464,26 @@ namespace BadBalatro
 
         private void button1_Click(object sender, EventArgs e)
         {
+            selectedCards.Clear();
             string[] split = testBox.Text.Split(',');
-
-            Card c1 = new Card(split[0], int.Parse(split[1]));
-            split = textBox1.Text.Split(","); 
-            Card c2 = new Card(split[0], int.Parse(split[1]));
+            selectedCards[0].setSuite(split[0]);
+            selectedCards[0].setNumber(int.Parse(split[1]));
+            split = textBox1.Text.Split(",");
+            selectedCards[1].setSuite(split[0]);
+            selectedCards[1].setNumber(int.Parse(split[1]));
             split = textBox2.Text.Split(",");
-            Card c3 = new Card(split[0], int.Parse(split[1]));
+            selectedCards[2].setSuite(split[0]);
+            selectedCards[2].setNumber(int.Parse(split[1]));
+
             split = textBox3.Text.Split(",");
-            Card c4 = new Card(split[0], int.Parse(split[1]));
+            selectedCards[3].setSuite(split[0]);
+            selectedCards[3].setNumber(int.Parse(split[1]));
+
             split = textBox4.Text.Split(",");
-            Card c5 = new Card(split[0], int.Parse(split[1]));
-            List<Card> C = new List<Card>() { c1, c2, c3, c4, c5 };
-            handLabel.Text = scoringFramework(C);
+            selectedCards[4].setSuite(split[0]);
+            selectedCards[4].setNumber(int.Parse(split[1]));
+            
+            handLabel.Text = scoringFramework();
 
 
 
