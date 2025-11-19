@@ -202,9 +202,9 @@ namespace BadBalatro
             cards.Sort((x, y) => x.getNumber().CompareTo(y.getNumber()));
 
             string temp = "";
-            for (int i = 0; i < cards.Count; i++)
+            for (int i = 0; i < selectedCards.Count; i++)
             {
-                temp += cards[i].getSuite() + "," + cards[i].getNumber().ToString() + " ";
+                temp += selectedCards[i].getSuite() + "," + selectedCards[i].getNumber().ToString() + " ";
             }
             MessageBox.Show(temp);
 
@@ -213,9 +213,9 @@ namespace BadBalatro
             //straight flush 
             for (int i = 1; i < cards.Count; i++)
             {   // check for a straight
-                if (cards[i].getNumber() == cards[i - 1].getNumber() + 1
+                if (selectedCards[i].getNumber() == selectedCards[i - 1].getNumber() + 1
                     //check for flush
-                    && cards[0].getSuite() == cards[i].getSuite())
+                    && selectedCards[0].getSuite() == selectedCards[i].getSuite())
                 {
                     count++;
                 }
@@ -229,14 +229,14 @@ namespace BadBalatro
             temp = "";
             count = 0;
             //ref 
-            if (cards.Count >= 4)
+            if (selectedCards.Count >= 4)
             {
                 for (int x = 0; x < 2; x++)
                 {
 
-                    for (int y = 0; y < cards.Count; y++)
+                    for (int y = 0; y < selectedCards.Count; y++)
                     {
-                        if (cards[x].getNumber() == cards[y].getNumber())
+                        if (selectedCards[x].getNumber() == selectedCards[y].getNumber())
                         {
                             count++;
 
@@ -257,28 +257,29 @@ namespace BadBalatro
             int CountY=0;
             count = 0;
             int z = 0;
-            if (cards.Count >= 5)
+            if (selectedCards.Count >= 5)
             {
                 for (int x = 0; x < 2; x++)
                 {
                     
 
-                    for (int y = 0; y < cards.Count; y++)
+                    for (int y = 0; y < selectedCards.Count; y++)
                     {
                         if (x == 0)
                         {
                             z = x;
                         }
-                        if (cards[z].getNumber() == cards[y].getNumber())
+                        if (selectedCards[z].getNumber() == selectedCards[y].getNumber())
                         {
                             count++;
+
                         }
                     }
                     if (x == 0)
                     {
                         CountX = count;
                         count = 0;
-                        z = cards.Count - 1;
+                        z = selectedCards.Count - 1;
                         MessageBox.Show("x " + CountX.ToString());
                     }
                     else
@@ -296,7 +297,7 @@ namespace BadBalatro
             //flush
             for (int i = 1; i < cards.Count; i++)
             {   // check for a straight
-                if (cards[0].getSuite() == cards[i].getSuite())
+                if (selectedCards[0].getSuite() == selectedCards[i].getSuite())
                 {
                     count++;
                 }
@@ -309,7 +310,7 @@ namespace BadBalatro
             //straight
             for (int i = 1; i < cards.Count; i++)
             {   // check for a straight
-                if (cards[i].getNumber() == cards[i - 1].getNumber() + 1)
+                if (selectedCards[i].getNumber() == selectedCards[i - 1].getNumber() + 1)
                     //check for flush
                 {
                     count++;
@@ -465,25 +466,32 @@ namespace BadBalatro
         private void button1_Click(object sender, EventArgs e)
         {
             selectedCards.Clear();
-            string[] split = testBox.Text.Split(',');
-            selectedCards[0].setSuite(split[0]);
-            selectedCards[0].setNumber(int.Parse(split[1]));
-            split = textBox1.Text.Split(",");
-            selectedCards[1].setSuite(split[0]);
-            selectedCards[1].setNumber(int.Parse(split[1]));
-            split = textBox2.Text.Split(",");
-            selectedCards[2].setSuite(split[0]);
-            selectedCards[2].setNumber(int.Parse(split[1]));
+            for (int i = 0; i < 5; i++)
+            {
 
-            split = textBox3.Text.Split(",");
-            selectedCards[3].setSuite(split[0]);
-            selectedCards[3].setNumber(int.Parse(split[1]));
+                selectedCards.Add(new Card());
 
-            split = textBox4.Text.Split(",");
-            selectedCards[4].setSuite(split[0]);
-            selectedCards[4].setNumber(int.Parse(split[1]));
+            }
+                string[] split = testBox.Text.Split(',');
+                selectedCards[0].setSuite(split[0]);
+                selectedCards[0].setNumber(int.Parse(split[1]));
+                split = textBox1.Text.Split(",");
+                selectedCards[1].setSuite(split[0]);
+                selectedCards[1].setNumber(int.Parse(split[1]));
+                split = textBox2.Text.Split(",");
+                selectedCards[2].setSuite(split[0]);
+                selectedCards[2].setNumber(int.Parse(split[1]));
+
+                split = textBox3.Text.Split(",");
+                selectedCards[3].setSuite(split[0]);
+                selectedCards[3].setNumber(int.Parse(split[1]));
+
+                split = textBox4.Text.Split(",");
+                selectedCards[4].setSuite(split[0]);
+                selectedCards[4].setNumber(int.Parse(split[1]));
+
+                handLabel.Text = scoringFramework();
             
-            handLabel.Text = scoringFramework();
 
 
 

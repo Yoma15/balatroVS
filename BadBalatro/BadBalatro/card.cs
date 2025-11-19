@@ -13,6 +13,7 @@ namespace BadBalatro
         private int number;
         //the suite of the card
         private string suite;
+        bool isScoring;
 
         private PictureBox cardPictureBox;
         //if the card is currenlty selected to be apart of play
@@ -54,6 +55,13 @@ namespace BadBalatro
 
             
         }
+        public void setIsScored(bool scoring)
+        {
+            isScoring = scoring;
+            // MessageBox.Show(isSelected.ToString());
+
+
+        }
         public void setPictureBox(PictureBox box)
         {
             cardPictureBox = box;
@@ -74,6 +82,9 @@ namespace BadBalatro
         public string getSuite() { return suite;}
 
         public bool getIsSelected() { return isSelected;}
+
+        public bool getIsScoring() { return isScoring; }
+
 
         public string getCardString()
         {
