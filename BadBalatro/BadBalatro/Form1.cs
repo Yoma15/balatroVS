@@ -59,7 +59,7 @@ namespace BadBalatro
             playlabel.Text = "plays: " + plays.ToString();
             discardLabel.Text = "discards: " + discards.ToString();
             targetChip = calculatetargetChip();
-
+            targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
 
             deck = shuffle(deck, 4);
             for (int i = 0; i < maxCards; i++)
@@ -190,18 +190,69 @@ namespace BadBalatro
             //looks at every card 
             for (int i = 0; i < maxCards; i++)
             {
-                //local variable to store the suite and number 
-                // the first element is the  suite and the second element is the number
-                string[] split = hand[i].ToString().Split(",");
-
-                //sets the suite
-                cards[i].setSuite(split[0]);
-
-                //sets the number
-                cards[i].setNumber(int.Parse(split[1]));
+               if (i < hand.Count)
+                {
+                    string[] split = hand[i].ToString().Split(",");
+                    //sets the suite
+                    cards[i].setSuite(split[0]);
+                    //sets the number
+                    cards[i].setNumber(int.Parse(split[1]));
+                    // Ensure the picture box is visible if it was hidden
+                    cards[i].GetPictureBox().Visible = true; 
+                }
+                else
+                {
+                    // Hide picture box if no card in hand at this slot (safety)
+                     cards[i].GetPictureBox().Visible = false; 
+                }
             }
         }
+        // New function to handle Next Round Logic
+        public void startNextRound()
+        {
+            MessageBox.Show("Round Complete! Starting Round " + (round + 1));
+            // making the targetChips = calculateTargetChips
+            targetChip = calculatetargetChip();
+            targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
 
+            // then move any cards from the discard pile and the hand back into the deck 
+            // Move hand to deck
+            while (hand.Count > 0)
+            {
+                moveTolist(0, hand, deck);
+            }
+            // Move discard pile to deck
+            while (discardPile.Count > 0)
+            {
+                moveTolist(0, discardPile, deck);
+            }
+
+            // shuffle the deck 
+            deck = shuffle(deck, 4);
+
+            // *then draw the players 8 more cards
+            for (int i = 0; i < maxCards; i++)
+            {
+                if (deck.Count > 0)
+                {
+                    moveTolist(0, deck, hand);
+                }
+            }
+
+            // Update visual list boxes to reflect changes
+            updateBox(handListBox, hand);
+            updateBox(deckListBox, deck);
+            updateCardClasses();
+
+            // Additional resets to make sure the game is playable in the new round
+            selectedCards.Clear();
+            plays = 4;
+            discards = 4;
+            playlabel.Text = "plays: " + plays.ToString();
+            discardLabel.Text = "discards: " + discards.ToString();
+            canSelect = true;
+            playButton.Enabled = true;
+        }
 
 
 
@@ -358,6 +409,14 @@ namespace BadBalatro
                 canSelect = false;
                 plays--;
                 playlabel.Text = "plays: " + plays.ToString();
+                if (chips >= targetChip)
+               {
+                    startNextRound();
+               }
+               else if (plays == 0)
+               {
+                    MessageBox.Show("Game Over! You ran out of plays.");
+               }
                 //discard cards that dont go towards scoring 
 
                //targetChip = calculatetargetChip();
