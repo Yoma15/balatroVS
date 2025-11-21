@@ -60,6 +60,8 @@ namespace BadBalatro
             discardLabel.Text = "discards: " + discards.ToString();
             targetChip = calculatetargetChip();
             targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
+            roundLabel.Text = $"round {round}";
+
 
             deck = shuffle(deck, 4);
             for (int i = 0; i < maxCards; i++)
@@ -210,7 +212,9 @@ namespace BadBalatro
         // New function to handle Next Round Logic
         public void startNextRound()
         {
-            MessageBox.Show("Round Complete! Starting Round " + (round + 1));
+            round++;
+            MessageBox.Show("Round Complete! Starting Round " + (round));
+            roundLabel.Text = $"round {round}";
             // making the targetChips = calculateTargetChips
             targetChip = calculatetargetChip();
             targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
@@ -245,9 +249,16 @@ namespace BadBalatro
             updateCardClasses();
 
             // Additional resets to make sure the game is playable in the new round
-            selectedCards.Clear();
+            for (int i = 0; i < selectedCards.Count; i++)
+            {
+                selectedCards[i].GetPictureBox().BackColor = Color.Transparent;
+
+                selectedCards[i].setIsSelected(false);
+            }
+                selectedCards.Clear();
             plays = 4;
             discards = 4;
+            chips = 0;
             playlabel.Text = "plays: " + plays.ToString();
             discardLabel.Text = "discards: " + discards.ToString();
             canSelect = true;
@@ -275,7 +286,7 @@ namespace BadBalatro
             {
                 temp += selectedCards[i].getSuite() + "," + selectedCards[i].getNumber().ToString() + " ";
             }
-            MessageBox.Show(temp);
+            //MessageBox.Show(temp);
 
 
 
@@ -308,6 +319,7 @@ namespace BadBalatro
                         if (selectedCards[x].getNumber() == selectedCards[y].getNumber())
                         {
                             count++;
+                            //selectedCards[x].setIsScored(true) ;
 
                         }
                     }
@@ -349,12 +361,12 @@ namespace BadBalatro
                         CountX = count;
                         count = 0;
                         z = selectedCards.Count - 1;
-                        MessageBox.Show("x " + CountX.ToString());
+                        //MessageBox.Show("x " + CountX.ToString());
                     }
                     else
                     { CountY = count;
                         count = 0;
-                        MessageBox.Show("y " + CountY.ToString());
+                        //MessageBox.Show("y " + CountY.ToString());
                     }
 
 
@@ -409,6 +421,25 @@ namespace BadBalatro
                 canSelect = false;
                 plays--;
                 playlabel.Text = "plays: " + plays.ToString();
+
+                //calculate chips and mult from scoring Framework
+                //scoringFramework();
+
+                //Calculate the chips from each card
+                //and run joker checks
+
+
+
+                //get total chips earned by multiplying the total chips and the mults 
+
+                //debug/testing
+                //chips += 300;
+                chipLabel.Text = chips.ToString(); 
+                canSelect = true;
+                playButton.Enabled = true;
+
+
+                
                 if (chips >= targetChip)
                {
                     startNextRound();
