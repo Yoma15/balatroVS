@@ -376,7 +376,7 @@ namespace BadBalatro
                 }
             }
             //flush
-            for (int i = 1; i < cards.Count; i++)
+            for (int i = 0; i < cards.Count; i++)
             {   // check for a straight
                 if (selectedCards[0].getSuite() == selectedCards[i].getSuite())
                 {
@@ -389,7 +389,7 @@ namespace BadBalatro
             }
 
             //straight
-            for (int i = 1; i < cards.Count; i++)
+            for (int i = 0; i < cards.Count; i++)
             {   // check for a straight
                 if (selectedCards[i].getNumber() == selectedCards[i - 1].getNumber() + 1)
                     //check for flush
@@ -402,9 +402,25 @@ namespace BadBalatro
                 }
             }
             //three of a kind
+            if (selectedCards.Count == 3)
+            {
+                for (int i = 0; i < cards.Count;i++)
+                {
+                    if (selectedCards[i].getNumber() == selectedCards[0].getNumber())
+                    {
+                        count++;
+                        return "three of a kind";
+                    }
+                    
+                }
+
+            }
 
             //two pair
+            for (int i = 0; i < cards.Count; i++)
+            {
 
+            }
             //pair 
 
 
