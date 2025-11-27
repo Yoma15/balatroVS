@@ -36,8 +36,12 @@ namespace BadBalatro
         int chips = 0;
         int targetChip;
 
+        int roundChips = 0;
+        int roundMult = 0;
 
 
+
+        //HH
         public int calculatetargetChip()
         {
             int currentChips = 0;
@@ -54,6 +58,7 @@ namespace BadBalatro
         private void BadBalatro_Load(object sender, EventArgs e)
         {
             intializeDeck();
+            //BN
             cardPictureBoxes.Add(cardBox0); cardPictureBoxes.Add(cardBox1); cardPictureBoxes.Add(cardBox2); cardPictureBoxes.Add(cardBox3); cardPictureBoxes.Add(cardBox4); cardPictureBoxes.Add(cardBox5); cardPictureBoxes.Add(cardBox6); cardPictureBoxes.Add(cardBox7);
 
 
@@ -190,11 +195,12 @@ namespace BadBalatro
             //looks at every card 
             for (int i = 0; i < maxCards; i++)
             {
+                string[] split;
                 //local variable to store the suite and number 
                 // the first element is the  suite and the second element is the number
                 if (i < hand.Count)
                 {
-                    string[] split = hand[i].ToString().Split(",");
+                    split = hand[i].ToString().Split(",");
 
                     //sets the suite
                     cards[i].setSuite(split[0]);
@@ -204,15 +210,7 @@ namespace BadBalatro
 
                     // Ensure the picture box is visible if it was hidden
                     cards[i].GetPictureBox().Visible = true;
-               if (i < hand.Count)
-                {
-                    string[] split = hand[i].ToString().Split(",");
-                    //sets the suite
-                    cards[i].setSuite(split[0]);
-                    //sets the number
-                    cards[i].setNumber(int.Parse(split[1]));
-                    // Ensure the picture box is visible if it was hidden
-                    cards[i].GetPictureBox().Visible = true; 
+
                 }
                 else
                 {
@@ -220,11 +218,10 @@ namespace BadBalatro
 
                     cards[i].GetPictureBox().Visible = false;
 
-                     cards[i].GetPictureBox().Visible = false; 
-
                 }
             }
         }
+
         // New function to handle Next Round Logic
         public void startNextRound()
         {
@@ -273,6 +270,8 @@ namespace BadBalatro
             selectedCards.Clear();
             plays = 4;
             discards = 4;
+            chips = 0;
+            chipLabel.Text = $"Chips: {chips}";
             playlabel.Text = "plays: " + plays.ToString();
             discardLabel.Text = "discards: " + discards.ToString();
             canSelect = true;
@@ -317,6 +316,8 @@ namespace BadBalatro
                 }
                 if (count == 4)
                 {
+                    roundChips = 100;
+                    roundMult = 8;
                     return "straight flush";
                 }
             }
@@ -341,7 +342,11 @@ namespace BadBalatro
                     }
 
                     if (count == 4)
-                    { return "four of a kind"; }
+                    {
+                        roundChips = 60;
+                        roundMult = 7;
+                        return "four of a kind";
+                    }
                     else { count = 0; }
 
                 }
@@ -390,6 +395,8 @@ namespace BadBalatro
                 }
                 if ((CountX == 3 && CountY == 2) || (CountX == 2 && CountY == 3))
                 {
+                    roundChips = 40;
+                    roundMult = 4;
                     return "full house";
                 }
             }
@@ -422,14 +429,14 @@ namespace BadBalatro
             //three of a kind
             if (selectedCards.Count == 3)
             {
-                for (int i = 0; i < cards.Count;i++)
+                for (int i = 0; i < cards.Count; i++)
                 {
                     if (selectedCards[i].getNumber() == selectedCards[0].getNumber())
                     {
                         count++;
                         return "three of a kind";
                     }
-                    
+
                 }
 
             }
@@ -467,22 +474,13 @@ namespace BadBalatro
                 //get total chips earned by multiplying the total chips and the mults 
 
                 //debug/testing
-                //chips += 300;
-                chipLabel.Text = chips.ToString(); 
+                chips += 300;
+                chipLabel.Text = chips.ToString();
                 canSelect = true;
                 playButton.Enabled = true;
 
 
-                
-                if (chips >= targetChip)
-               {
-                    startNextRound();
-               }
-               else if (plays == 0)
-               {
-                    MessageBox.Show("Game Over! You ran out of plays.");
-               }
-                //discard cards that dont go towards scoring 
+
                 if (chips >= targetChip)
                 {
                     startNextRound();
@@ -491,6 +489,7 @@ namespace BadBalatro
                 {
                     MessageBox.Show("Game Over! You ran out of plays.");
                 }
+
                 //targetChip = calculatetargetChip();
                 //round ends when player reaches goal points
                 //when play button is clicked, everything will be run. We will need  to double check the logic of a player wining a round
@@ -650,6 +649,11 @@ namespace BadBalatro
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chipLabel_Click(object sender, EventArgs e)
         {
 
         }
