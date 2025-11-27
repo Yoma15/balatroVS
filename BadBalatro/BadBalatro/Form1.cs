@@ -15,7 +15,7 @@ namespace BadBalatro
         List<string> discardPile = new List<string>();
         List<PictureBox> cardPictureBoxes = new List<PictureBox>();
         List<Card> selectedCards = new List<Card>();
-        
+
         bool deselecting = false;
 
         //holds all the card class instances in one list
@@ -34,18 +34,18 @@ namespace BadBalatro
         int round = 1;
         int chips = 0;
         int targetChip;
-        
 
-        
+
+
         public int calculatetargetChip()
         {
             int currentChips = 0;
 
-            currentChips = 150 + (150*round);
+            currentChips = 150 + (150 * round);
             //For each round, 150 points is added, and the round level is * by round #
             return currentChips;
 
-            
+
         }
 
         //Function called as it loads for the user 
@@ -59,8 +59,7 @@ namespace BadBalatro
             playlabel.Text = "plays: " + plays.ToString();
             discardLabel.Text = "discards: " + discards.ToString();
             targetChip = calculatetargetChip();
-
-
+            targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
             deck = shuffle(deck, 4);
             for (int i = 0; i < maxCards; i++)
             {
@@ -192,15 +191,81 @@ namespace BadBalatro
             {
                 //local variable to store the suite and number 
                 // the first element is the  suite and the second element is the number
-                string[] split = hand[i].ToString().Split(",");
+                if (i < hand.Count)
+                {
+                    string[] split = hand[i].ToString().Split(",");
 
-                //sets the suite
-                cards[i].setSuite(split[0]);
+                    //sets the suite
+                    cards[i].setSuite(split[0]);
 
-                //sets the number
-                cards[i].setNumber(int.Parse(split[1]));
+                    //sets the number
+                    cards[i].setNumber(int.Parse(split[1]));
+
+                    // Ensure the picture box is visible if it was hidden
+                    cards[i].GetPictureBox().Visible = true;
+                }
+                else
+                {
+                    // Hide picture box if no card in hand at this slot (safety)
+                    cards[i].GetPictureBox().Visible = false;
+                }
             }
         }
+
+
+        public void startNextRound()
+        {
+            MessageBox.Show("Round Complete! Starting Round " + (round + 1));
+
+            // *the round variable will have to increase by one
+            round++;
+
+            // *then you will need to update the target bind variable and the text box to match.
+            // You can do this by making the targetChips = calculateTargetChips
+            targetChip = calculatetargetChip();
+            targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
+
+            // *then move any cards from the discard pile and the hand back into the deck 
+            // Move hand to deck
+            while (hand.Count > 0)
+            {
+                moveTolist(0, hand, deck);
+            }
+            // Move discard pile to deck
+            while (discardPile.Count > 0)
+            {
+                moveTolist(0, discardPile, deck);
+            }
+
+            // *shuffle the deck 
+            deck = shuffle(deck, 4);
+
+            // *then draw the players 8 more cards
+            for (int i = 0; i < maxCards; i++)
+            {
+                if (deck.Count > 0)
+                {
+                    moveTolist(0, deck, hand);
+                }
+            }
+
+            // Update visual list boxes to reflect changes
+            updateBox(handListBox, hand);
+            updateBox(deckListBox, deck);
+
+            // *and run the update cardClasses function after
+            updateCardClasses();
+
+            // MANTHAN: Additional resets to make sure the game is playable in the new round
+            selectedCards.Clear();
+            plays = 4;
+            discards = 4;
+            playlabel.Text = "plays: " + plays.ToString();
+            discardLabel.Text = "discards: " + discards.ToString();
+            canSelect = true;
+            playButton.Enabled = true;
+        }
+
 
 
 
@@ -260,7 +325,7 @@ namespace BadBalatro
 
                         }
                     }
-                    
+
                     if (count == 4)
                     { return "four of a kind"; }
                     else { count = 0; }
@@ -271,15 +336,15 @@ namespace BadBalatro
 
 
             //full house
-            int CountX=0;
-            int CountY=0;
+            int CountX = 0;
+            int CountY = 0;
             count = 0;
             int z = 0;
             if (selectedCards.Count >= 5)
             {
                 for (int x = 0; x < 2; x++)
                 {
-                    
+
 
                     for (int y = 0; y < selectedCards.Count; y++)
                     {
@@ -301,14 +366,16 @@ namespace BadBalatro
                         MessageBox.Show("x " + CountX.ToString());
                     }
                     else
-                    { CountY = count;
+                    {
+                        CountY = count;
                         count = 0;
                         MessageBox.Show("y " + CountY.ToString());
                     }
 
 
                 }
-                if ((CountX == 3 && CountY == 2) || (CountX == 2 && CountY == 3)){
+                if ((CountX == 3 && CountY == 2) || (CountX == 2 && CountY == 3))
+                {
                     return "full house";
                 }
             }
@@ -329,7 +396,7 @@ namespace BadBalatro
             for (int i = 1; i < cards.Count; i++)
             {   // check for a straight
                 if (selectedCards[i].getNumber() == selectedCards[i - 1].getNumber() + 1)
-                    //check for flush
+                //check for flush
                 {
                     count++;
                 }
@@ -359,11 +426,18 @@ namespace BadBalatro
                 plays--;
                 playlabel.Text = "plays: " + plays.ToString();
                 //discard cards that dont go towards scoring 
+                if (chips >= targetChip)
+                {
+                    startNextRound();
+                }
+                else if (plays == 0)
+                {
+                    MessageBox.Show("Game Over! You ran out of plays.");
+                }
+                //targetChip = calculatetargetChip();
+                //round ends when player reaches goal points
+                //when play button is clicked, everything will be run. We will need  to double check the logic of a player wining a round
 
-               //targetChip = calculatetargetChip();
-               //round ends when player reaches goal points
-               //when play button is clicked, everything will be run. We will need  to double check the logic of a player wining a round
-                
             }
         }
 
@@ -448,7 +522,7 @@ namespace BadBalatro
         private void discardButton_Click(object sender, EventArgs e)
         {
 
-            
+
             discardPile.ToList().ForEach(Console.WriteLine);
             if (discards > 0)
             {
@@ -492,26 +566,26 @@ namespace BadBalatro
                 selectedCards.Add(new Card());
 
             }
-                string[] split = testBox.Text.Split(',');
-                selectedCards[0].setSuite(split[0]);
-                selectedCards[0].setNumber(int.Parse(split[1]));
-                split = textBox1.Text.Split(",");
-                selectedCards[1].setSuite(split[0]);
-                selectedCards[1].setNumber(int.Parse(split[1]));
-                split = textBox2.Text.Split(",");
-                selectedCards[2].setSuite(split[0]);
-                selectedCards[2].setNumber(int.Parse(split[1]));
+            string[] split = testBox.Text.Split(',');
+            selectedCards[0].setSuite(split[0]);
+            selectedCards[0].setNumber(int.Parse(split[1]));
+            split = textBox1.Text.Split(",");
+            selectedCards[1].setSuite(split[0]);
+            selectedCards[1].setNumber(int.Parse(split[1]));
+            split = textBox2.Text.Split(",");
+            selectedCards[2].setSuite(split[0]);
+            selectedCards[2].setNumber(int.Parse(split[1]));
 
-                split = textBox3.Text.Split(",");
-                selectedCards[3].setSuite(split[0]);
-                selectedCards[3].setNumber(int.Parse(split[1]));
+            split = textBox3.Text.Split(",");
+            selectedCards[3].setSuite(split[0]);
+            selectedCards[3].setNumber(int.Parse(split[1]));
 
-                split = textBox4.Text.Split(",");
-                selectedCards[4].setSuite(split[0]);
-                selectedCards[4].setNumber(int.Parse(split[1]));
+            split = textBox4.Text.Split(",");
+            selectedCards[4].setSuite(split[0]);
+            selectedCards[4].setNumber(int.Parse(split[1]));
 
-                handLabel.Text = scoringFramework();
-            
+            handLabel.Text = scoringFramework();
+
 
 
 
@@ -520,7 +594,7 @@ namespace BadBalatro
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
     }
 }
