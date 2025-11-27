@@ -475,7 +475,8 @@ namespace BadBalatro
 
                 //debug/testing
                 chips += 300;
-                chipLabel.Text = chips.ToString();
+                chipLabel.Text = $"Chips: {chips}";
+                
                 canSelect = true;
                 playButton.Enabled = true;
 
