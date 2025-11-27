@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Drawing;
 
 namespace BadBalatro
 {
@@ -60,12 +61,6 @@ namespace BadBalatro
             discardLabel.Text = "discards: " + discards.ToString();
             targetChip = calculatetargetChip();
             targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
-<<<<<<< HEAD
-=======
-            roundLabel.Text = $"round {round}";
-
-
->>>>>>> dcfe6eedcc826b4ece0ecf816594856d3b6946cc
             deck = shuffle(deck, 4);
             for (int i = 0; i < maxCards; i++)
             {
@@ -195,7 +190,6 @@ namespace BadBalatro
             //looks at every card 
             for (int i = 0; i < maxCards; i++)
             {
-<<<<<<< HEAD
                 //local variable to store the suite and number 
                 // the first element is the  suite and the second element is the number
                 if (i < hand.Count)
@@ -210,7 +204,6 @@ namespace BadBalatro
 
                     // Ensure the picture box is visible if it was hidden
                     cards[i].GetPictureBox().Visible = true;
-=======
                if (i < hand.Count)
                 {
                     string[] split = hand[i].ToString().Split(",");
@@ -220,75 +213,19 @@ namespace BadBalatro
                     cards[i].setNumber(int.Parse(split[1]));
                     // Ensure the picture box is visible if it was hidden
                     cards[i].GetPictureBox().Visible = true; 
->>>>>>> dcfe6eedcc826b4ece0ecf816594856d3b6946cc
                 }
                 else
                 {
                     // Hide picture box if no card in hand at this slot (safety)
-<<<<<<< HEAD
+
                     cards[i].GetPictureBox().Visible = false;
-=======
+
                      cards[i].GetPictureBox().Visible = false; 
->>>>>>> dcfe6eedcc826b4ece0ecf816594856d3b6946cc
+
                 }
             }
         }
         // New function to handle Next Round Logic
-        public void startNextRound()
-        {
-            round++;
-            MessageBox.Show("Round Complete! Starting Round " + (round));
-            roundLabel.Text = $"round {round}";
-            // making the targetChips = calculateTargetChips
-            targetChip = calculatetargetChip();
-            targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
-
-            // then move any cards from the discard pile and the hand back into the deck 
-            // Move hand to deck
-            while (hand.Count > 0)
-            {
-                moveTolist(0, hand, deck);
-            }
-            // Move discard pile to deck
-            while (discardPile.Count > 0)
-            {
-                moveTolist(0, discardPile, deck);
-            }
-
-            // shuffle the deck 
-            deck = shuffle(deck, 4);
-
-            // *then draw the players 8 more cards
-            for (int i = 0; i < maxCards; i++)
-            {
-                if (deck.Count > 0)
-                {
-                    moveTolist(0, deck, hand);
-                }
-            }
-
-            // Update visual list boxes to reflect changes
-            updateBox(handListBox, hand);
-            updateBox(deckListBox, deck);
-            updateCardClasses();
-
-            // Additional resets to make sure the game is playable in the new round
-            for (int i = 0; i < selectedCards.Count; i++)
-            {
-                selectedCards[i].GetPictureBox().BackColor = Color.Transparent;
-
-                selectedCards[i].setIsSelected(false);
-            }
-                selectedCards.Clear();
-            plays = 4;
-            discards = 4;
-            chips = 0;
-            playlabel.Text = "plays: " + plays.ToString();
-            discardLabel.Text = "discards: " + discards.ToString();
-            canSelect = true;
-            playButton.Enabled = true;
-        }
-
         public void startNextRound()
         {
             MessageBox.Show("Round Complete! Starting Round " + (round + 1));
