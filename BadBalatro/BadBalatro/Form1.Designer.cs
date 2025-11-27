@@ -53,6 +53,7 @@
             textBox2 = new TextBox();
             textBox3 = new TextBox();
             textBox4 = new TextBox();
+            roundLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)cardBox0).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox4).BeginInit();
@@ -301,11 +302,21 @@
             textBox4.Size = new Size(150, 31);
             textBox4.TabIndex = 24;
             // 
+            // roundLabel
+            // 
+            roundLabel.AutoSize = true;
+            roundLabel.Location = new Point(329, 32);
+            roundLabel.Name = "roundLabel";
+            roundLabel.Size = new Size(68, 25);
+            roundLabel.TabIndex = 25;
+            roundLabel.Text = "Round:";
+            // 
             // BadBalatro
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(913, 611);
+            Controls.Add(roundLabel);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
@@ -372,5 +383,6 @@
         private TextBox textBox2;
         private TextBox textBox3;
         private TextBox textBox4;
+        private Label roundLabel;
     }
 }
