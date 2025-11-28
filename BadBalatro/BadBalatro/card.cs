@@ -40,16 +40,22 @@ namespace BadBalatro
             return number;
         }
 
-        public void setNumber(int Number, int number)
+        public void setNumber(int Number)
         {
             this.number = Number;
-            if (number == 11 || number == 12 || number == 13)
+
+            // MR
+            if (number == 10 || number == 11 || number == 12 || number == 13)
             {
-                chipAmount = 13;
+                chipAmount = 13; 
+            }
+            else if (number == 1)
+            {
+                chipAmount = 11; 
             }
             else
             {
-                chipAmount = number;
+                chipAmount = number; 
             }
         }
         public void setSuite(string Suite)

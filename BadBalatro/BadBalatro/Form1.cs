@@ -142,7 +142,7 @@ namespace BadBalatro
                         break;
                 }
                 //sets the card number and adds the two together into  the deck
-                for (int y = 1; y <= 12; y++)
+                for (int y = 1; y <= 13; y++)
                 {
                     deck.Add(currentSuite + "," + y);
                     currentIndex++;
@@ -274,103 +274,88 @@ namespace BadBalatro
 
 
 
-
+        //MR
         string scoringFramework()
         {
-
+           
             List<Card> sorted = selectedCards.OrderBy(x => x.getNumber()).ToList();
 
-
-
-
-            cards.Sort((x, y) => x.getNumber().CompareTo(y.getNumber()));
-
-            // 1. Check Flush
+            //  Check Flush
             bool isFlush = true;
-            for (int i = 1; i < selectedCards.Count; i++)
+            for (int i = 1; i < sorted.Count; i++)
             {
-                if (selectedCards[i].getSuite() != selectedCards[0].getSuite())
+                if (sorted[i].getSuite() != sorted[0].getSuite())
                     isFlush = false;
             }
 
-            // 2. Check Straight
+            //  Check Straight
             bool isStraight = true;
-            for (int i = 1; i < selectedCards.Count; i++)
-                {
-                if (selectedCards[i].getNumber() != selectedCards[i - 1].getNumber() + 1)
+            for (int i = 1; i < sorted.Count; i++)
+            {
+                if (sorted[i].getNumber() != sorted[i - 1].getNumber() + 1)
                     isStraight = false;
-                }
+            }
 
-            // 3. Check Groups (Pairs, Triples, Quads)
-            var groups = selectedCards.GroupBy(x => x.getNumber())
-                                      .Select(g => new { Num = g.Key, Count = g.Count() })
-                                      .OrderByDescending(g => g.Count).ToList();
+            //  Group cards by Rank 
+            var groups = sorted.GroupBy(x => x.getNumber())
+                                .Select(g => new { Num = g.Key, Count = g.Count() })
+                                .OrderByDescending(g => g.Count).ToList();
 
-            //DECISION TREE
+            // SCORING DECISION
 
             if (isStraight && isFlush)
             {
                 roundChips = 100; roundMult = 8;
                 return "Straight Flush";
-                        }
+            }
 
             if (groups.Count > 0 && groups[0].Count == 4)
-                    {
+            {
                 roundChips = 60; roundMult = 7;
                 return "Four of a Kind";
-                    }
+            }
 
             if (groups.Count > 1 && groups[0].Count == 3 && groups[1].Count == 2)
             {
                 roundChips = 40; roundMult = 4;
                 return "Full House";
-                }
+            }
 
             if (isFlush)
             {
-                roundChips = 35; roundMult = 4;
+                roundChips = 35; roundMult = 4; 
                 return "Flush";
-                        }
+            }
 
             if (isStraight)
-                    {
+            {
                 roundChips = 30; roundMult = 4;
                 return "Straight";
-                    }
+            }
 
             if (groups.Count > 0 && groups[0].Count == 3)
-                {
-                roundChips = 30; roundMult = 3;
+            {
+                roundChips = 30; roundMult = 3; 
                 return "Three of a Kind";
-                }
+            }
 
             if (groups.Count > 1 && groups[0].Count == 2 && groups[1].Count == 2)
-                {
-                roundChips = 20; roundMult = 2;
-                return "Two Pair";
-                }
-            }
-            //three of a kind
-            if (selectedCards.Count == 3)
             {
-                for (int i = 0; i < cards.Count; i++)
-                {
-                    if (selectedCards[i].getNumber() == selectedCards[0].getNumber())
-                    {
-                        count++;
-                        return "three of a kind";
-                    }
+                roundChips = 20; roundMult = 2; 
+                return "Two Pair";
+            }
 
             if (groups.Count > 0 && groups[0].Count == 2)
             {
-                roundChips = 10; roundMult = 2;
+                roundChips = 10; roundMult = 2; 
                 return "Pair";
             }
 
-            // High Card
+            // High Card default
             roundChips = 5; roundMult = 1;
             return "High Card";
         }
+
         private void playButton_click(object sender, EventArgs e)
         {
             if (selectedCards.Count > 0)
@@ -542,21 +527,23 @@ namespace BadBalatro
             }
             string[] split = testBox.Text.Split(',');
             selectedCards[0].setSuite(split[0]);
-            selectedCards[0].setNumber(int.Parse(split[1]), selectedCards[0].GetNumber());
+            selectedCards[0].setNumber(int.Parse(split[1])); 
+
             split = textBox1.Text.Split(",");
             selectedCards[1].setSuite(split[0]);
-            selectedCards[1].setNumber(int.Parse(split[1]), selectedCards[1].GetNumber());
+            selectedCards[1].setNumber(int.Parse(split[1])); 
+
             split = textBox2.Text.Split(",");
             selectedCards[2].setSuite(split[0]);
-            selectedCards[2].setNumber(int.Parse(split[1]), selectedCards[2].GetNumber());
+            selectedCards[2].setNumber(int.Parse(split[1])); 
 
             split = textBox3.Text.Split(",");
             selectedCards[3].setSuite(split[0]);
-            selectedCards[3].setNumber(int.Parse(split[1]), selectedCards[3].GetNumber());
+            selectedCards[3].setNumber(int.Parse(split[1])); 
 
             split = textBox4.Text.Split(",");
             selectedCards[4].setSuite(split[0]);
-            selectedCards[4].setNumber(int.Parse(split[1]), selectedCards[4].GetNumber());
+            selectedCards[4].setNumber(int.Parse(split[1])); 
 
             handLabel.Text = scoringFramework();
 
