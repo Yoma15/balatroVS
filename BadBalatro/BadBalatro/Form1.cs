@@ -206,21 +206,12 @@ namespace BadBalatro
                     cards[i].setSuite(split[0]);
 
                     //sets the number
-                    cards[i].setNumber(int.Parse(split[1]),
-
-                    //sets the number
-                    cards[i].GetNumber());
-
-                    // Ensure the picture box is visible if it was hidden
+                    cards[i].setNumber(int.Parse(split[1]));
                     cards[i].GetPictureBox().Visible = true;
-
                 }
                 else
                 {
-                    // Hide picture box if no card in hand at this slot (safety)
-
                     cards[i].GetPictureBox().Visible = false;
-
                 }
             }
         }
@@ -266,7 +257,6 @@ namespace BadBalatro
             updateBox(handListBox, hand);
             updateBox(deckListBox, deck);
 
-            // *and run the update cardClasses function after
             updateCardClasses();
             //MR
             // Additional resets to make sure the game is playable in the new round
@@ -287,146 +277,77 @@ namespace BadBalatro
 
         string scoringFramework()
         {
-            string a = "";
-            string currentSuite;
-            string[] split;
-            int count = 0;
 
-            //cards = selectedCards;
+            List<Card> sorted = selectedCards.OrderBy(x => x.getNumber()).ToList();
 
 
 
 
             cards.Sort((x, y) => x.getNumber().CompareTo(y.getNumber()));
 
-            string temp = "";
-            for (int i = 0; i < selectedCards.Count; i++)
+            // 1. Check Flush
+            bool isFlush = true;
+            for (int i = 1; i < selectedCards.Count; i++)
             {
-                temp += selectedCards[i].getSuite() + "," + selectedCards[i].getNumber().ToString() + " ";
-            }
-            //MessageBox.Show(temp);
-
-
-
-            //straight flush 
-            for (int i = 1; i < cards.Count; i++)
-            {   // check for a straight
-                if (selectedCards[i].getNumber() == selectedCards[i - 1].getNumber() + 1
-                    //check for flush
-                    && selectedCards[0].getSuite() == selectedCards[i].getSuite())
-                {
-                    count++;
-                }
-                if (count == 4)
-                {
-                    roundChips = 100;
-                    roundMult = 8;
-                    return "straight flush";
-                }
+                if (selectedCards[i].getSuite() != selectedCards[0].getSuite())
+                    isFlush = false;
             }
 
-            //four of a kind
-            temp = "";
-            count = 0;
-            //ref 
-            if (selectedCards.Count >= 4)
+            // 2. Check Straight
+            bool isStraight = true;
+            for (int i = 1; i < selectedCards.Count; i++)
+                {
+                if (selectedCards[i].getNumber() != selectedCards[i - 1].getNumber() + 1)
+                    isStraight = false;
+                }
+
+            // 3. Check Groups (Pairs, Triples, Quads)
+            var groups = selectedCards.GroupBy(x => x.getNumber())
+                                      .Select(g => new { Num = g.Key, Count = g.Count() })
+                                      .OrderByDescending(g => g.Count).ToList();
+
+            //DECISION TREE
+
+            if (isStraight && isFlush)
             {
-                for (int x = 0; x < 2; x++)
-                {
-
-                    for (int y = 0; y < selectedCards.Count; y++)
-                    {
-                        if (selectedCards[x].getNumber() == selectedCards[y].getNumber())
-                        {
-                            count++;
-                            //selectedCards[x].setIsScored(true) ;
-
+                roundChips = 100; roundMult = 8;
+                return "Straight Flush";
                         }
-                    }
 
-                    if (count == 4)
+            if (groups.Count > 0 && groups[0].Count == 4)
                     {
-                        roundChips = 60;
-                        roundMult = 7;
-                        return "four of a kind";
+                roundChips = 60; roundMult = 7;
+                return "Four of a Kind";
                     }
-                    else { count = 0; }
 
-                }
-            }
-
-
-
-            //full house
-            int CountX = 0;
-            int CountY = 0;
-            count = 0;
-            int z = 0;
-            if (selectedCards.Count >= 5)
+            if (groups.Count > 1 && groups[0].Count == 3 && groups[1].Count == 2)
             {
-                for (int x = 0; x < 2; x++)
-                {
+                roundChips = 40; roundMult = 4;
+                return "Full House";
+                }
 
-
-                    for (int y = 0; y < selectedCards.Count; y++)
-                    {
-                        if (x == 0)
-                        {
-                            z = x;
+            if (isFlush)
+            {
+                roundChips = 35; roundMult = 4;
+                return "Flush";
                         }
-                        if (selectedCards[z].getNumber() == selectedCards[y].getNumber())
-                        {
-                            count++;
 
-                        }
-                    }
-                    if (x == 0)
+            if (isStraight)
                     {
-                        CountX = count;
-                        count = 0;
-                        z = selectedCards.Count - 1;
-                        //MessageBox.Show("x " + CountX.ToString());
-                    }
-                    else
-                    {
-                        CountY = count;
-                        count = 0;
-                        //MessageBox.Show("y " + CountY.ToString());
+                roundChips = 30; roundMult = 4;
+                return "Straight";
                     }
 
+            if (groups.Count > 0 && groups[0].Count == 3)
+                {
+                roundChips = 30; roundMult = 3;
+                return "Three of a Kind";
+                }
 
-                }
-                if ((CountX == 3 && CountY == 2) || (CountX == 2 && CountY == 3))
+            if (groups.Count > 1 && groups[0].Count == 2 && groups[1].Count == 2)
                 {
-                    roundChips = 40;
-                    roundMult = 4;
-                    return "full house";
-                }
-            }
-            //flush
-            for (int i = 0; i < cards.Count; i++)
-            {   // check for a straight
-                if (selectedCards[0].getSuite() == selectedCards[i].getSuite())
-                {
-                    count++;
-                }
-                if (count == 4)
-                {
-                    return "flush";
-                }
-            }
-
-            //straight
-            for (int i = 0; i < cards.Count; i++)
-            {   // check for a straight
-                if (selectedCards[i].getNumber() == selectedCards[i - 1].getNumber() + 1)
-                //check for flush
-                {
-                    count++;
-                }
-                if (count == 4)
-                {
-                    return "straight";
+                roundChips = 20; roundMult = 2;
+                return "Two Pair";
                 }
             }
             //three of a kind
@@ -440,22 +361,15 @@ namespace BadBalatro
                         return "three of a kind";
                     }
 
-                }
-
-            }
-
-            //two pair
-            for (int i = 0; i < cards.Count; i++)
+            if (groups.Count > 0 && groups[0].Count == 2)
             {
-
+                roundChips = 10; roundMult = 2;
+                return "Pair";
             }
-            //pair 
 
-
-            //high card
-            return "highCard";
-
-
+            // High Card
+            roundChips = 5; roundMult = 1;
+            return "High Card";
         }
         private void playButton_click(object sender, EventArgs e)
         {
@@ -645,7 +559,6 @@ namespace BadBalatro
             selectedCards[4].setNumber(int.Parse(split[1]), selectedCards[4].GetNumber());
 
             handLabel.Text = scoringFramework();
-
 
 
 
