@@ -34,15 +34,23 @@ namespace BadBalatro
             number = Value;
             suite = Suite;
         }
-
-       public void setNumber(int Number)
+        //MR
+        public int GetNumber()
         {
-            number = Number;
-            if(number == 10 || number == 11 || number == 12)
+            return number;
+        }
+
+        public void setNumber(int Number, int number)
+        {
+            this.number = Number;
+            if (number == 11 || number == 12 || number == 13)
             {
                 chipAmount = 13;
             }
-            chipAmount = number;
+            else
+            {
+                chipAmount = number;
+            }
         }
         public void setSuite(string Suite)
         {
@@ -77,7 +85,7 @@ namespace BadBalatro
 
         public int getNumber() {return number; }
 
-        public int getChipAmount() { return chipAmount;}
+        public int getChips() { return chipAmount; }
 
         public string getSuite() { return suite;}
 

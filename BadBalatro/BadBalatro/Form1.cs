@@ -206,7 +206,10 @@ namespace BadBalatro
                     cards[i].setSuite(split[0]);
 
                     //sets the number
-                    cards[i].setNumber(int.Parse(split[1]));
+                    cards[i].setNumber(int.Parse(split[1]),
+
+                    //sets the number
+                    cards[i].GetNumber());
 
                     // Ensure the picture box is visible if it was hidden
                     cards[i].GetPictureBox().Visible = true;
@@ -265,8 +268,8 @@ namespace BadBalatro
 
             // *and run the update cardClasses function after
             updateCardClasses();
-
-            // MANTHAN: Additional resets to make sure the game is playable in the new round
+            //MR
+            // Additional resets to make sure the game is playable in the new round
             selectedCards.Clear();
             plays = 4;
             discards = 4;
@@ -462,24 +465,24 @@ namespace BadBalatro
                 canSelect = false;
                 plays--;
                 playlabel.Text = "plays: " + plays.ToString();
+                //MR
+                // Calculate chips and mult from scoring Framework (Base hand score)
+                string handType = scoringFramework();
 
-                //calculate chips and mult from scoring Framework
-                //scoringFramework();
+                // Calculate the chips from each selected card and add to roundChips
+                for (int i = 0; i < selectedCards.Count; i++)
+                {
+                 
+                    roundChips += selectedCards[i].getChips();
+                }
+                int totalPlayScore = roundChips * roundMult;
 
-                //Calculate the chips from each card
-                //and run joker checks
-
-
-
-                //get total chips earned by multiplying the total chips and the mults 
-
-                //debug/testing
-                chips += 300;
+                chips += totalPlayScore;
                 chipLabel.Text = $"Chips: {chips}";
-                
+                MessageBox.Show($"Hand: {handType}\nScore: {totalPlayScore}");
+
                 canSelect = true;
                 playButton.Enabled = true;
-
 
 
                 if (chips >= targetChip)
@@ -625,21 +628,21 @@ namespace BadBalatro
             }
             string[] split = testBox.Text.Split(',');
             selectedCards[0].setSuite(split[0]);
-            selectedCards[0].setNumber(int.Parse(split[1]));
+            selectedCards[0].setNumber(int.Parse(split[1]), selectedCards[0].GetNumber());
             split = textBox1.Text.Split(",");
             selectedCards[1].setSuite(split[0]);
-            selectedCards[1].setNumber(int.Parse(split[1]));
+            selectedCards[1].setNumber(int.Parse(split[1]), selectedCards[1].GetNumber());
             split = textBox2.Text.Split(",");
             selectedCards[2].setSuite(split[0]);
-            selectedCards[2].setNumber(int.Parse(split[1]));
+            selectedCards[2].setNumber(int.Parse(split[1]), selectedCards[2].GetNumber());
 
             split = textBox3.Text.Split(",");
             selectedCards[3].setSuite(split[0]);
-            selectedCards[3].setNumber(int.Parse(split[1]));
+            selectedCards[3].setNumber(int.Parse(split[1]), selectedCards[3].GetNumber());
 
             split = textBox4.Text.Split(",");
             selectedCards[4].setSuite(split[0]);
-            selectedCards[4].setNumber(int.Parse(split[1]));
+            selectedCards[4].setNumber(int.Parse(split[1]), selectedCards[4].GetNumber());
 
             handLabel.Text = scoringFramework();
 
