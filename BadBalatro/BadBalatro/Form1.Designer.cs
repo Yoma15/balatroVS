@@ -224,7 +224,6 @@
             chipLabel.Size = new Size(116, 25);
             chipLabel.TabIndex = 14;
             chipLabel.Text = "Current chips";
-            chipLabel.Click += chipLabel_Click;
             // 
             // handLabel
             // 
@@ -280,7 +279,7 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(150, 31);
             textBox1.TabIndex = 21;
-            textBox1.TextChanged += textBox1_TextChanged;
+           
             // 
             // textBox2
             // 

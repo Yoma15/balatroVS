@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Drawing;
+using System.Diagnostics.Contracts;
 
 namespace BadBalatro
 {
@@ -30,12 +31,16 @@ namespace BadBalatro
         bool canSelect = true;
         //still need to integrate a max selection for the list box
 
+
+        string handType;
+
+
         int plays = 4;
         int discards = 4;
         int round = 1;
         int chips = 0;
         int targetChip;
-
+        
         int roundChips = 0;
         int roundMult = 0;
 
@@ -57,8 +62,9 @@ namespace BadBalatro
 
         private void BadBalatro_Load(object sender, EventArgs e)
         {
-            intializeDeck();
             //BN
+            intializeDeck();
+            
             cardPictureBoxes.Add(cardBox0); cardPictureBoxes.Add(cardBox1); cardPictureBoxes.Add(cardBox2); cardPictureBoxes.Add(cardBox3); cardPictureBoxes.Add(cardBox4); cardPictureBoxes.Add(cardBox5); cardPictureBoxes.Add(cardBox6); cardPictureBoxes.Add(cardBox7);
 
 
@@ -261,6 +267,7 @@ namespace BadBalatro
             //MR
             // Additional resets to make sure the game is playable in the new round
             selectedCards.Clear();
+
             plays = 4;
             discards = 4;
             chips = 0;
@@ -282,24 +289,39 @@ namespace BadBalatro
 
             //  Check Flush
             bool isFlush = true;
-            for (int i = 1; i < sorted.Count; i++)
+            if (sorted.Count == 5)
             {
-                if (sorted[i].getSuite() != sorted[0].getSuite())
-                    isFlush = false;
+                for (int i = 1; i < sorted.Count; i++)
+                {
+                    if (sorted[i].getSuite() != sorted[0].getSuite())
+                        isFlush = false;
+                }
+            }
+            else
+            {
+                isFlush = false;
             }
 
             //  Check Straight
             bool isStraight = true;
-            for (int i = 1; i < sorted.Count; i++)
+            if (sorted.Count == 5)
             {
-                if (sorted[i].getNumber() != sorted[i - 1].getNumber() + 1)
-                    isStraight = false;
+
+                for (int i = 1; i < sorted.Count; i++)
+                {
+                    if (sorted[i].getNumber() != sorted[i - 1].getNumber() + 1)
+                        isStraight = false;
+                }
+            }
+            else
+            {
+                isStraight = false;
             }
 
-            //  Group cards by Rank 
-            var groups = sorted.GroupBy(x => x.getNumber())
-                                .Select(g => new { Num = g.Key, Count = g.Count() })
-                                .OrderByDescending(g => g.Count).ToList();
+                //  Group cards by Rank 
+                var groups = sorted.GroupBy(x => x.getNumber())
+                                    .Select(g => new { Num = g.Key, Count = g.Count() })
+                                    .OrderByDescending(g => g.Count).ToList();
 
             // SCORING DECISION
 
@@ -360,26 +382,35 @@ namespace BadBalatro
         {
             if (selectedCards.Count > 0)
             {
+
                 playButton.Enabled = false;
                 canSelect = false;
                 plays--;
                 playlabel.Text = "plays: " + plays.ToString();
                 //MR
                 // Calculate chips and mult from scoring Framework (Base hand score)
-                string handType = scoringFramework();
+                 handType = scoringFramework();
+                handLabel.Text = handType;
 
                 // Calculate the chips from each selected card and add to roundChips
+                //if(handType != "High Card")
                 for (int i = 0; i < selectedCards.Count; i++)
                 {
                  
                     roundChips += selectedCards[i].getChips();
                 }
+                //call joker classes
+
+
+                //calculate total points
                 int totalPlayScore = roundChips * roundMult;
 
                 chips += totalPlayScore;
                 chipLabel.Text = $"Chips: {chips}";
                 MessageBox.Show($"Hand: {handType}\nScore: {totalPlayScore}");
+                discardSelected(true);
 
+                roundChips = 0;
                 canSelect = true;
                 playButton.Enabled = true;
 
@@ -400,6 +431,53 @@ namespace BadBalatro
             }
         }
 
+        public void discardSelected(bool drawMore)
+        {
+            for (int i = 0; i < selectedCards.Count; i++)
+            {
+                selectedCards[i].GetPictureBox().BackColor = Color.Transparent;
+
+                string x = selectedCards[i].getSuite() + "," + selectedCards[i].getNumber().ToString();
+
+
+                MessageBox.Show(x);
+                int y = hand.IndexOf(x);
+
+                cards[y].setIsSelected(false);
+                moveTolist(y, hand, discardPile);
+
+                //draw new cards
+                if (drawMore)
+                {
+                    hand.Insert(y, deck[0]);
+                    deck.RemoveAt(0);
+                    updateBox(deckListBox, deck);
+                    updateBox(handListBox, hand);
+                    updateCardClasses();
+                }
+            }
+            selectedCards.Clear();
+        }
+        private void discardButton_Click(object sender, EventArgs e)
+        {
+
+
+            discardPile.ToList().ForEach(Console.WriteLine);
+            if (discards > 0)
+            {
+                discards = discards - 1;
+                discardLabel.Text = "discards: " + discards.ToString();
+
+
+                //unselect cards 
+               discardSelected(true);
+            }
+            else
+            {
+                MessageBox.Show("No more discards left", "No Discards");
+            }
+        }
+
 
         // Card clicking and selection  handling
         void cardSelection(int index)
@@ -414,7 +492,7 @@ namespace BadBalatro
                         cards[index].setIsSelected(true);
 
                         cardPictureBoxes[index].BackColor = Color.Blue;
-                        MessageBox.Show(cards[index].getCardString());
+                        //MessageBox.Show(cards[index].getCardString());
                         selectedCards.Add(cards[index]);
 
 
@@ -432,6 +510,9 @@ namespace BadBalatro
                     selectedCards.Remove(cards[index]);
 
                 }
+
+                handLabel.Text = scoringFramework();
+
             }
         }
 
@@ -445,8 +526,6 @@ namespace BadBalatro
         {
             cardSelection(1);
         }
-
-
 
         private void cardBox2_Click(object sender, EventArgs e)
         {
@@ -478,43 +557,7 @@ namespace BadBalatro
             cardSelection(7);
         }
 
-        private void discardButton_Click(object sender, EventArgs e)
-        {
-
-
-            discardPile.ToList().ForEach(Console.WriteLine);
-            if (discards > 0)
-            {
-                discards = discards - 1;
-                discardLabel.Text = "discards: " + discards.ToString();
-
-
-
-                for (int i = 0; i < selectedCards.Count; i++)
-                {
-                    selectedCards[i].GetPictureBox().BackColor = Color.Transparent;
-
-                    selectedCards[i].setIsSelected(false);
-
-                    string x = selectedCards[i].getSuite() + "," + selectedCards[i].getNumber().ToString();
-                    MessageBox.Show(x);
-                    int y = hand.IndexOf(x);
-                    moveTolist(y, hand, discardPile);
-                    //draw new cards
-                    hand.Insert(y, deck[0]);
-                    deck.RemoveAt(0);
-                    updateBox(deckListBox, deck);
-                    updateBox(handListBox, hand);
-                    updateCardClasses();
-
-                }
-                selectedCards.Clear();
-            }
-            else
-            {
-                MessageBox.Show("No more discards left", "No Discards");
-            }
-        }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -543,22 +586,23 @@ namespace BadBalatro
 
             split = textBox4.Text.Split(",");
             selectedCards[4].setSuite(split[0]);
-            selectedCards[4].setNumber(int.Parse(split[1])); 
-
-            handLabel.Text = scoringFramework();
-
-
+            selectedCards[4].setNumber(int.Parse(split[1]));
+            roundChips = 0; roundMult = 0;
+            
 
 
-        }
+            //calculate total points
+            handType = scoringFramework();
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
+            for (int i = 0; i < selectedCards.Count; i++)
+            {
 
-        }
+                roundChips += selectedCards[i].getChips();
+            }
 
-        private void chipLabel_Click(object sender, EventArgs e)
-        {
+            int totalPlayScore = roundChips * roundMult;
+
+            handLabel.Text = $"{handType}, C: {roundChips}, M: {roundMult} total {totalPlayScore}";
 
         }
     }
