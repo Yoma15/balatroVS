@@ -68,10 +68,10 @@
             // cardBox0
             // 
             cardBox0.Image = (Image)resources.GetObject("cardBox0.Image");
-            cardBox0.Location = new Point(62, 237);
-            cardBox0.Margin = new Padding(2);
+            cardBox0.Location = new Point(43, 142);
+            cardBox0.Margin = new Padding(1, 1, 1, 1);
             cardBox0.Name = "cardBox0";
-            cardBox0.Size = new Size(82, 120);
+            cardBox0.Size = new Size(57, 72);
             cardBox0.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox0.TabIndex = 0;
             cardBox0.TabStop = false;
@@ -80,10 +80,10 @@
             // cardBox2
             // 
             cardBox2.Image = (Image)resources.GetObject("cardBox2.Image");
-            cardBox2.Location = new Point(257, 237);
-            cardBox2.Margin = new Padding(2);
+            cardBox2.Location = new Point(180, 142);
+            cardBox2.Margin = new Padding(1, 1, 1, 1);
             cardBox2.Name = "cardBox2";
-            cardBox2.Size = new Size(82, 120);
+            cardBox2.Size = new Size(57, 72);
             cardBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox2.TabIndex = 1;
             cardBox2.TabStop = false;
@@ -92,56 +92,62 @@
             // deckListBox
             // 
             deckListBox.FormattingEnabled = true;
-            deckListBox.ItemHeight = 25;
-            deckListBox.Location = new Point(729, 57);
+            deckListBox.ItemHeight = 15;
+            deckListBox.Location = new Point(510, 34);
+            deckListBox.Margin = new Padding(2, 2, 2, 2);
             deckListBox.Name = "deckListBox";
-            deckListBox.Size = new Size(180, 304);
+            deckListBox.Size = new Size(127, 184);
             deckListBox.TabIndex = 2;
             // 
             // handListBox
             // 
             handListBox.FormattingEnabled = true;
-            handListBox.ItemHeight = 25;
-            handListBox.Location = new Point(540, 70);
+            handListBox.ItemHeight = 15;
+            handListBox.Location = new Point(378, 42);
+            handListBox.Margin = new Padding(2, 2, 2, 2);
             handListBox.Name = "handListBox";
             handListBox.SelectionMode = SelectionMode.MultiSimple;
-            handListBox.Size = new Size(146, 179);
+            handListBox.Size = new Size(103, 109);
             handListBox.TabIndex = 3;
+            handListBox.SelectedIndexChanged += handListBox_SelectedIndexChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(540, 32);
+            label1.Location = new Point(378, 19);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(52, 25);
+            label1.Size = new Size(34, 15);
             label1.TabIndex = 4;
             label1.Text = "hand";
             // 
             // playlabel
             // 
             playlabel.AutoSize = true;
-            playlabel.Location = new Point(62, 165);
+            playlabel.Location = new Point(43, 99);
+            playlabel.Margin = new Padding(2, 0, 2, 0);
             playlabel.Name = "playlabel";
-            playlabel.Size = new Size(57, 25);
+            playlabel.Size = new Size(37, 15);
             playlabel.TabIndex = 5;
             playlabel.Text = "plays:";
             // 
             // discardLabel
             // 
             discardLabel.AutoSize = true;
-            discardLabel.Location = new Point(190, 165);
+            discardLabel.Location = new Point(133, 99);
+            discardLabel.Margin = new Padding(2, 0, 2, 0);
             discardLabel.Name = "discardLabel";
-            discardLabel.Size = new Size(83, 25);
+            discardLabel.Size = new Size(54, 15);
             discardLabel.TabIndex = 6;
             discardLabel.Text = "Discards:";
             // 
             // cardBox4
             // 
             cardBox4.Image = (Image)resources.GetObject("cardBox4.Image");
-            cardBox4.Location = new Point(62, 390);
-            cardBox4.Margin = new Padding(2);
+            cardBox4.Location = new Point(43, 234);
+            cardBox4.Margin = new Padding(1, 1, 1, 1);
             cardBox4.Name = "cardBox4";
-            cardBox4.Size = new Size(82, 120);
+            cardBox4.Size = new Size(57, 72);
             cardBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox4.TabIndex = 8;
             cardBox4.TabStop = false;
@@ -150,10 +156,10 @@
             // cardBox3
             // 
             cardBox3.Image = (Image)resources.GetObject("cardBox3.Image");
-            cardBox3.Location = new Point(348, 237);
-            cardBox3.Margin = new Padding(2);
+            cardBox3.Location = new Point(244, 142);
+            cardBox3.Margin = new Padding(1, 1, 1, 1);
             cardBox3.Name = "cardBox3";
-            cardBox3.Size = new Size(82, 120);
+            cardBox3.Size = new Size(57, 72);
             cardBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox3.TabIndex = 7;
             cardBox3.TabStop = false;
@@ -163,10 +169,10 @@
             // 
             cardBox1.BackColor = SystemColors.Control;
             cardBox1.Image = (Image)resources.GetObject("cardBox1.Image");
-            cardBox1.Location = new Point(161, 237);
-            cardBox1.Margin = new Padding(2);
+            cardBox1.Location = new Point(113, 142);
+            cardBox1.Margin = new Padding(1, 1, 1, 1);
             cardBox1.Name = "cardBox1";
-            cardBox1.Size = new Size(82, 120);
+            cardBox1.Size = new Size(57, 72);
             cardBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox1.TabIndex = 12;
             cardBox1.TabStop = false;
@@ -175,10 +181,10 @@
             // cardBox7
             // 
             cardBox7.Image = (Image)resources.GetObject("cardBox7.Image");
-            cardBox7.Location = new Point(348, 390);
-            cardBox7.Margin = new Padding(2);
+            cardBox7.Location = new Point(244, 234);
+            cardBox7.Margin = new Padding(1, 1, 1, 1);
             cardBox7.Name = "cardBox7";
-            cardBox7.Size = new Size(82, 120);
+            cardBox7.Size = new Size(57, 72);
             cardBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox7.TabIndex = 11;
             cardBox7.TabStop = false;
@@ -187,10 +193,10 @@
             // cardBox6
             // 
             cardBox6.Image = (Image)resources.GetObject("cardBox6.Image");
-            cardBox6.Location = new Point(257, 390);
-            cardBox6.Margin = new Padding(2);
+            cardBox6.Location = new Point(180, 234);
+            cardBox6.Margin = new Padding(1, 1, 1, 1);
             cardBox6.Name = "cardBox6";
-            cardBox6.Size = new Size(82, 120);
+            cardBox6.Size = new Size(57, 72);
             cardBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox6.TabIndex = 10;
             cardBox6.TabStop = false;
@@ -199,10 +205,10 @@
             // cardBox5
             // 
             cardBox5.Image = (Image)resources.GetObject("cardBox5.Image");
-            cardBox5.Location = new Point(161, 390);
-            cardBox5.Margin = new Padding(2);
+            cardBox5.Location = new Point(113, 234);
+            cardBox5.Margin = new Padding(1, 1, 1, 1);
             cardBox5.Name = "cardBox5";
-            cardBox5.Size = new Size(82, 120);
+            cardBox5.Size = new Size(57, 72);
             cardBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox5.TabIndex = 9;
             cardBox5.TabStop = false;
@@ -211,36 +217,39 @@
             // targetBindLabel
             // 
             targetBindLabel.AutoSize = true;
-            targetBindLabel.Location = new Point(62, 32);
+            targetBindLabel.Location = new Point(43, 19);
+            targetBindLabel.Margin = new Padding(2, 0, 2, 0);
             targetBindLabel.Name = "targetBindLabel";
-            targetBindLabel.Size = new Size(166, 25);
+            targetBindLabel.Size = new Size(111, 15);
             targetBindLabel.TabIndex = 13;
             targetBindLabel.Text = "Round Target Bind: ";
             // 
             // chipLabel
             // 
             chipLabel.AutoSize = true;
-            chipLabel.Location = new Point(62, 70);
+            chipLabel.Location = new Point(43, 42);
+            chipLabel.Margin = new Padding(2, 0, 2, 0);
             chipLabel.Name = "chipLabel";
-            chipLabel.Size = new Size(116, 25);
+            chipLabel.Size = new Size(78, 15);
             chipLabel.TabIndex = 14;
             chipLabel.Text = "Current chips";
             // 
             // handLabel
             // 
             handLabel.AutoSize = true;
-            handLabel.Location = new Point(348, 165);
+            handLabel.Location = new Point(244, 99);
+            handLabel.Margin = new Padding(2, 0, 2, 0);
             handLabel.Name = "handLabel";
-            handLabel.Size = new Size(116, 25);
+            handLabel.Size = new Size(78, 15);
             handLabel.TabIndex = 15;
             handLabel.Text = "current hand:";
             // 
             // playButton
             // 
-            playButton.Location = new Point(99, 124);
-            playButton.Margin = new Padding(2);
+            playButton.Location = new Point(69, 74);
+            playButton.Margin = new Padding(1, 1, 1, 1);
             playButton.Name = "playButton";
-            playButton.Size = new Size(111, 35);
+            playButton.Size = new Size(78, 21);
             playButton.TabIndex = 16;
             playButton.Text = "Play";
             playButton.UseVisualStyleBackColor = true;
@@ -248,10 +257,10 @@
             // 
             // discardButton
             // 
-            discardButton.Location = new Point(257, 124);
-            discardButton.Margin = new Padding(2);
+            discardButton.Location = new Point(180, 74);
+            discardButton.Margin = new Padding(1, 1, 1, 1);
             discardButton.Name = "discardButton";
-            discardButton.Size = new Size(111, 35);
+            discardButton.Size = new Size(78, 21);
             discardButton.TabIndex = 17;
             discardButton.Text = "Discard";
             discardButton.UseVisualStyleBackColor = true;
@@ -259,9 +268,10 @@
             // 
             // button1
             // 
-            button1.Location = new Point(686, 413);
+            button1.Location = new Point(480, 248);
+            button1.Margin = new Padding(2, 2, 2, 2);
             button1.Name = "button1";
-            button1.Size = new Size(112, 34);
+            button1.Size = new Size(78, 20);
             button1.TabIndex = 18;
             button1.Text = "test";
             button1.UseVisualStyleBackColor = true;
@@ -269,62 +279,69 @@
             // 
             // testBox
             // 
-            testBox.Location = new Point(527, 285);
+            testBox.Location = new Point(369, 171);
+            testBox.Margin = new Padding(2, 2, 2, 2);
             testBox.Name = "testBox";
-            testBox.Size = new Size(150, 31);
+            testBox.Size = new Size(106, 23);
             testBox.TabIndex = 20;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(527, 330);
+            textBox1.Location = new Point(369, 198);
+            textBox1.Margin = new Padding(2, 2, 2, 2);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(150, 31);
+            textBox1.Size = new Size(106, 23);
             textBox1.TabIndex = 21;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(527, 390);
+            textBox2.Location = new Point(369, 234);
+            textBox2.Margin = new Padding(2, 2, 2, 2);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(150, 31);
+            textBox2.Size = new Size(106, 23);
             textBox2.TabIndex = 22;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(527, 447);
+            textBox3.Location = new Point(369, 268);
+            textBox3.Margin = new Padding(2, 2, 2, 2);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(150, 31);
+            textBox3.Size = new Size(106, 23);
             textBox3.TabIndex = 23;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(527, 505);
+            textBox4.Location = new Point(369, 303);
+            textBox4.Margin = new Padding(2, 2, 2, 2);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(150, 31);
+            textBox4.Size = new Size(106, 23);
             textBox4.TabIndex = 24;
             // 
             // roundLabel
             // 
             roundLabel.AutoSize = true;
-            roundLabel.Location = new Point(329, 32);
+            roundLabel.Location = new Point(230, 19);
+            roundLabel.Margin = new Padding(2, 0, 2, 0);
             roundLabel.Name = "roundLabel";
-            roundLabel.Size = new Size(68, 25);
+            roundLabel.Size = new Size(45, 15);
             roundLabel.TabIndex = 25;
             roundLabel.Text = "Round:";
             // 
             // chipMultlabel
             // 
             chipMultlabel.AutoSize = true;
-            chipMultlabel.Location = new Point(299, 80);
+            chipMultlabel.Location = new Point(209, 48);
+            chipMultlabel.Margin = new Padding(2, 0, 2, 0);
             chipMultlabel.Name = "chipMultlabel";
-            chipMultlabel.Size = new Size(16, 25);
+            chipMultlabel.Size = new Size(10, 15);
             chipMultlabel.TabIndex = 26;
             chipMultlabel.Text = ":";
             // 
             // BadBalatro
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(913, 611);
+            ClientSize = new Size(639, 367);
             Controls.Add(chipMultlabel);
             Controls.Add(roundLabel);
             Controls.Add(textBox4);
@@ -351,7 +368,7 @@
             Controls.Add(deckListBox);
             Controls.Add(cardBox2);
             Controls.Add(cardBox0);
-            Margin = new Padding(2);
+            Margin = new Padding(1, 1, 1, 1);
             Name = "BadBalatro";
             Text = "Form1";
             Load += BadBalatro_Load;

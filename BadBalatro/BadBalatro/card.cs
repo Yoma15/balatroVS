@@ -99,11 +99,13 @@ namespace BadBalatro
 
         public bool getIsScoring() { return isScoring; }
 
+        
+
 
         public string getCardString()
         {
 
-            return suite + "," +  number.ToString();
+            return number.ToString() + suite;
         }
 
 

@@ -1,12 +1,14 @@
+using BadBalatro.Properties;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
+using System.Diagnostics.Contracts;
+using System.Drawing;
 using System.Linq.Expressions;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Drawing;
-using System.Diagnostics.Contracts;
 
 namespace BadBalatro
 {
@@ -40,9 +42,11 @@ namespace BadBalatro
         int round = 1;
         int chips = 0;
         int targetChip;
-        
+
         int roundChips = 0;
         int roundMult = 0;
+
+        
 
 
 
@@ -58,13 +62,25 @@ namespace BadBalatro
 
         }
 
-        //Function called as it loads for the user 
-
+        // Function that pdates cardBox image based on value taken from list when called 
+        public void setCardImage()
+        {
+            
+            for (int i = 0; i < hand.Count; i++)
+            {
+                int currentNumber = cards[i].getNumber();
+                string currentSuit = cards[i].getSuite();
+                cardPictureBoxes[i].ImageLocation = ($"CardSprites\\{currentSuit}\\{currentNumber}{currentSuit}.png");
+                cardPictureBoxes[i].Load();
+            }
+        }
+        
+        //Function called as it loads for the user
         private void BadBalatro_Load(object sender, EventArgs e)
         {
             //BN
             intializeDeck();
-            
+
             cardPictureBoxes.Add(cardBox0); cardPictureBoxes.Add(cardBox1); cardPictureBoxes.Add(cardBox2); cardPictureBoxes.Add(cardBox3); cardPictureBoxes.Add(cardBox4); cardPictureBoxes.Add(cardBox5); cardPictureBoxes.Add(cardBox6); cardPictureBoxes.Add(cardBox7);
 
 
@@ -86,9 +102,11 @@ namespace BadBalatro
                 cards[i].setPictureBox(cardPictureBoxes[i]);
             }
             updateCardClasses();
+            setCardImage();
 
         }
 
+        
 
 
         //takes a list and populate all of it into a listbox 
@@ -102,16 +120,9 @@ namespace BadBalatro
             }
         }
 
-        //takes a list and populate all of it into a listbox 
-        //int list overload
-        public void updateBox(ListBox box, List<int> list)
-        {
-            box.Items.Clear();
-            for (int i = 0; i < list.Count; i++)
-            {
-                box.Items.Add(list[i]);
-            }
-        }
+ 
+
+        
 
         //takes a element at a index of the originList and moves it to the destinationList
         //The function will remove it from the origin list.
@@ -276,6 +287,7 @@ namespace BadBalatro
             discardLabel.Text = "discards: " + discards.ToString();
             canSelect = true;
             playButton.Enabled = true;
+            setCardImage();
         }
 
 
@@ -284,7 +296,7 @@ namespace BadBalatro
         //MR
         string scoringFramework()
         {
-           
+
             List<Card> sorted = selectedCards.OrderBy(x => x.getNumber()).ToList();
 
             //  Check Flush
@@ -318,10 +330,10 @@ namespace BadBalatro
                 isStraight = false;
             }
 
-                //  Group cards by Rank 
-                var groups = sorted.GroupBy(x => x.getNumber())
-                                    .Select(g => new { Num = g.Key, Count = g.Count() })
-                                    .OrderByDescending(g => g.Count).ToList();
+            //  Group cards by Rank 
+            var groups = sorted.GroupBy(x => x.getNumber())
+                                .Select(g => new { Num = g.Key, Count = g.Count() })
+                                .OrderByDescending(g => g.Count).ToList();
 
             // SCORING DECISION
 
@@ -345,7 +357,7 @@ namespace BadBalatro
 
             if (isFlush)
             {
-                roundChips = 35; roundMult = 4; 
+                roundChips = 35; roundMult = 4;
                 return "Flush";
             }
 
@@ -357,19 +369,19 @@ namespace BadBalatro
 
             if (groups.Count > 0 && groups[0].Count == 3)
             {
-                roundChips = 30; roundMult = 3; 
+                roundChips = 30; roundMult = 3;
                 return "Three of a Kind";
             }
 
             if (groups.Count > 1 && groups[0].Count == 2 && groups[1].Count == 2)
             {
-                roundChips = 20; roundMult = 2; 
+                roundChips = 20; roundMult = 2;
                 return "Two Pair";
             }
 
             if (groups.Count > 0 && groups[0].Count == 2)
             {
-                roundChips = 10; roundMult = 2; 
+                roundChips = 10; roundMult = 2;
                 return "Pair";
             }
 
@@ -389,14 +401,14 @@ namespace BadBalatro
                 playlabel.Text = "plays: " + plays.ToString();
                 //MR
                 // Calculate chips and mult from scoring Framework (Base hand score)
-                 handType = scoringFramework();
+                handType = scoringFramework();
                 handLabel.Text = handType;
 
                 // Calculate the chips from each selected card and add to roundChips
                 //if(handType != "High Card")
                 for (int i = 0; i < selectedCards.Count; i++)
                 {
-                 
+
                     roundChips += selectedCards[i].getChips();
                 }
                 //call joker classes
@@ -427,7 +439,7 @@ namespace BadBalatro
                 //targetChip = calculatetargetChip();
                 //round ends when player reaches goal points
                 //when play button is clicked, everything will be run. We will need  to double check the logic of a player wining a round
-
+                setCardImage();
             }
         }
 
@@ -440,7 +452,7 @@ namespace BadBalatro
                 string x = selectedCards[i].getSuite() + "," + selectedCards[i].getNumber().ToString();
 
 
-                MessageBox.Show(x);
+                
                 int y = hand.IndexOf(x);
 
                 cards[y].setIsSelected(false);
@@ -457,6 +469,7 @@ namespace BadBalatro
                 }
             }
             selectedCards.Clear();
+            setCardImage();
         }
         private void discardButton_Click(object sender, EventArgs e)
         {
@@ -470,12 +483,14 @@ namespace BadBalatro
 
 
                 //unselect cards 
-               discardSelected(true);
+                discardSelected(true);
+                setCardImage();
             }
             else
             {
                 MessageBox.Show("No more discards left", "No Discards");
             }
+
         }
 
 
@@ -491,7 +506,8 @@ namespace BadBalatro
 
                         cards[index].setIsSelected(true);
 
-                        cardPictureBoxes[index].BackColor = Color.Blue;
+                        //  cardPictureBoxes[index].BackColor = Color.Blue;
+                        cardPictureBoxes[index].
                         //MessageBox.Show(cards[index].getCardString());
                         selectedCards.Add(cards[index]);
 
@@ -512,7 +528,7 @@ namespace BadBalatro
                 }
 
                 handLabel.Text = $"{scoringFramework()} \n C: {roundChips} X M: {roundMult} ";
-                
+
 
             }
         }
@@ -558,7 +574,7 @@ namespace BadBalatro
             cardSelection(7);
         }
 
-        
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -571,25 +587,25 @@ namespace BadBalatro
             }
             string[] split = testBox.Text.Split(',');
             selectedCards[0].setSuite(split[0]);
-            selectedCards[0].setNumber(int.Parse(split[1])); 
+            selectedCards[0].setNumber(int.Parse(split[1]));
 
             split = textBox1.Text.Split(",");
             selectedCards[1].setSuite(split[0]);
-            selectedCards[1].setNumber(int.Parse(split[1])); 
+            selectedCards[1].setNumber(int.Parse(split[1]));
 
             split = textBox2.Text.Split(",");
             selectedCards[2].setSuite(split[0]);
-            selectedCards[2].setNumber(int.Parse(split[1])); 
+            selectedCards[2].setNumber(int.Parse(split[1]));
 
             split = textBox3.Text.Split(",");
             selectedCards[3].setSuite(split[0]);
-            selectedCards[3].setNumber(int.Parse(split[1])); 
+            selectedCards[3].setNumber(int.Parse(split[1]));
 
             split = textBox4.Text.Split(",");
             selectedCards[4].setSuite(split[0]);
             selectedCards[4].setNumber(int.Parse(split[1]));
             roundChips = 0; roundMult = 0;
-            
+
 
 
             //calculate total points
@@ -604,6 +620,11 @@ namespace BadBalatro
             int totalPlayScore = roundChips * roundMult;
 
             handLabel.Text = $"{handType}, C: {roundChips}, M: {roundMult} total {totalPlayScore}";
+
+        }
+
+        private void handListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
