@@ -511,7 +511,8 @@ namespace BadBalatro
 
                 }
 
-                handLabel.Text = scoringFramework();
+                handLabel.Text = $"{scoringFramework()} \n C: {roundChips} X M: {roundMult} ";
+                
 
             }
         }

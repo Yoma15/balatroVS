@@ -54,6 +54,7 @@
             textBox3 = new TextBox();
             textBox4 = new TextBox();
             roundLabel = new Label();
+            chipMultlabel = new Label();
             ((System.ComponentModel.ISupportInitialize)cardBox0).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox4).BeginInit();
@@ -279,7 +280,6 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(150, 31);
             textBox1.TabIndex = 21;
-           
             // 
             // textBox2
             // 
@@ -311,11 +311,21 @@
             roundLabel.TabIndex = 25;
             roundLabel.Text = "Round:";
             // 
+            // chipMultlabel
+            // 
+            chipMultlabel.AutoSize = true;
+            chipMultlabel.Location = new Point(299, 80);
+            chipMultlabel.Name = "chipMultlabel";
+            chipMultlabel.Size = new Size(16, 25);
+            chipMultlabel.TabIndex = 26;
+            chipMultlabel.Text = ":";
+            // 
             // BadBalatro
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(913, 611);
+            Controls.Add(chipMultlabel);
             Controls.Add(roundLabel);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
@@ -384,5 +394,6 @@
         private TextBox textBox3;
         private TextBox textBox4;
         private Label roundLabel;
+        private Label chipMultlabel;
     }
 }
