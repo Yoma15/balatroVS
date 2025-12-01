@@ -45,7 +45,7 @@ namespace BadBalatro
             this.number = Number;
 
             // MR
-            if (number == 10 || number == 11 || number == 12 || number == 13)
+            if (number == 11 || number == 12 || number == 13)
             {
                 chipAmount = 13; 
             }

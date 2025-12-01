@@ -144,14 +144,15 @@ namespace BadBalatro
                 switch (x)
                 {
                     case 0:
-                        currentSuite = "Hearts";
+                        //currentSuite = "Hearts";
+                        continue;
                         break;
                     case 1:
                         currentSuite = "Diamonds";
                         break;
                     case 2:
-                        currentSuite = "Spades";
-
+                        //currentSuite = "Spades";
+                        continue;
                         break;
                     case 3:
                         currentSuite = "Clubs";
@@ -506,8 +507,8 @@ namespace BadBalatro
 
                         cards[index].setIsSelected(true);
 
-                        //  cardPictureBoxes[index].BackColor = Color.Blue;
-                        cardPictureBoxes[index].
+                        cardPictureBoxes[index].BackColor = Color.Blue;
+                        //cardPictureBoxes[index].bo
                         //MessageBox.Show(cards[index].getCardString());
                         selectedCards.Add(cards[index]);
 
