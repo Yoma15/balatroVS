@@ -160,7 +160,7 @@ namespace BadBalatro
                         break;
                 }
                 //sets the card number and adds the two together into  the deck
-                for (int y = 1; y <= 13; y++)
+                for (int y = 1; y <= 10/*13*/; y++)
                 {
                     deck.Add(currentSuite + "," + y);
                     currentIndex++;
@@ -446,6 +446,7 @@ namespace BadBalatro
 
         public void discardSelected(bool drawMore)
         {
+            
             for (int i = 0; i < selectedCards.Count; i++)
             {
                 selectedCards[i].GetPictureBox().BackColor = Color.Transparent;
@@ -498,6 +499,8 @@ namespace BadBalatro
         // Card clicking and selection  handling
         void cardSelection(int index)
         {
+            int yFactor = 35;
+           
             if (canSelect)
             {
                 if (cards[index].getIsSelected() == false)
@@ -507,12 +510,13 @@ namespace BadBalatro
 
                         cards[index].setIsSelected(true);
 
-                        cardPictureBoxes[index].BackColor = Color.Blue;
+                        //cardPictureBoxes[index].BackColor = Color.Blue;
+                        cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y - yFactor); 
                         //cardPictureBoxes[index].bo
                         //MessageBox.Show(cards[index].getCardString());
                         selectedCards.Add(cards[index]);
 
-
+                       
                     }
                     else
                     {
@@ -523,7 +527,9 @@ namespace BadBalatro
                 else if (cards[index].getIsSelected() == true)
                 {
                     cards[index].setIsSelected(false);
-                    cardPictureBoxes[index].BackColor = Color.White;
+                    //cardPictureBoxes[index].BackColor = Color.White;
+                    cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y + yFactor);
+
                     selectedCards.Remove(cards[index]);
 
                 }
@@ -628,5 +634,6 @@ namespace BadBalatro
         {
 
         }
+
     }
 }
