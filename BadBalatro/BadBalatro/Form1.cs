@@ -46,7 +46,7 @@ namespace BadBalatro
         int roundChips = 0;
         int roundMult = 0;
 
-        
+
 
 
 
@@ -65,7 +65,7 @@ namespace BadBalatro
         // Function that pdates cardBox image based on value taken from list when called 
         public void setCardImage()
         {
-            
+
             for (int i = 0; i < hand.Count; i++)
             {
                 int currentNumber = cards[i].getNumber();
@@ -74,7 +74,7 @@ namespace BadBalatro
                 cardPictureBoxes[i].Load();
             }
         }
-        
+
         //Function called as it loads for the user
         private void BadBalatro_Load(object sender, EventArgs e)
         {
@@ -106,7 +106,7 @@ namespace BadBalatro
 
         }
 
-        
+
 
 
         //takes a list and populate all of it into a listbox 
@@ -120,9 +120,9 @@ namespace BadBalatro
             }
         }
 
- 
 
-        
+
+
 
         //takes a element at a index of the originList and moves it to the destinationList
         //The function will remove it from the origin list.
@@ -415,6 +415,7 @@ namespace BadBalatro
                 //call joker classes
 
 
+
                 //calculate total points
                 int totalPlayScore = roundChips * roundMult;
 
@@ -446,7 +447,7 @@ namespace BadBalatro
 
         public void discardSelected(bool drawMore)
         {
-            
+
             for (int i = 0; i < selectedCards.Count; i++)
             {
                 selectedCards[i].GetPictureBox().BackColor = Color.Transparent;
@@ -454,7 +455,7 @@ namespace BadBalatro
                 string x = selectedCards[i].getSuite() + "," + selectedCards[i].getNumber().ToString();
 
 
-                
+
                 int y = hand.IndexOf(x);
 
                 cards[y].setIsSelected(false);
@@ -500,7 +501,7 @@ namespace BadBalatro
         void cardSelection(int index)
         {
             int yFactor = 35;
-           
+
             if (canSelect)
             {
                 if (cards[index].getIsSelected() == false)
@@ -511,12 +512,12 @@ namespace BadBalatro
                         cards[index].setIsSelected(true);
 
                         //cardPictureBoxes[index].BackColor = Color.Blue;
-                        cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y - yFactor); 
+                        cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y - yFactor);
                         //cardPictureBoxes[index].bo
                         //MessageBox.Show(cards[index].getCardString());
                         selectedCards.Add(cards[index]);
 
-                       
+
                     }
                     else
                     {
@@ -634,6 +635,21 @@ namespace BadBalatro
         {
 
         }
+        //HH
+        private void Rules_Click(object sender, EventArgs e)
+        {
+        
+            {
+                string rules = "Rules:\n" +
+                               "1. Each game consists of multiple rounds where players must defeat three types of blinds, small, big, and boss blinds.\n" +
+                               "2.You must form a 5-card poker hand in order to achieve the target score(chips).\n" +
+                               "3.When you reach the target score, you can proceed to the next round.\n" + 
+                               "4.You can discard 5 cards per round and trade it in for another card in order to create better hands.\n";
 
+                MessageBox.Show(rules, "Rules", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            };
+
+
+        }
     }
 }
