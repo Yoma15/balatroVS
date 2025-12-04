@@ -46,6 +46,7 @@ namespace BadBalatro
         int roundChips = 0;
         int roundMult = 0;
 
+        int cardBoxY = 386;
 
 
 
@@ -170,7 +171,35 @@ namespace BadBalatro
         }
 
 
+        public void updateCardPosition() // TK
+        {
+            // MessageBox.Show("function run ");
 
+            for (int i = 0; i < 8; i++)
+            {
+                if (canSelect == true)
+                {
+
+                    if (cardPictureBoxes[i].Location.Y == cardBoxY - 35 && cards[i].getIsSelected() == false)
+                    {
+                        // MessageBox.Show("if ran");
+
+                        cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY);
+                    }
+                    else if (cardPictureBoxes[i].Location.Y == cardBoxY && cards[i].getIsSelected() == true)
+                    {
+                        // MessageBox.Show("else if ran");
+                        cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY - 35);
+                    }
+
+                }
+
+                else
+                {
+                    cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY);
+                }
+            }
+        }
 
 
         //Shuffles and returns a list that you give it. Shuffle Value is how many times the program will shuffle the list
@@ -398,6 +427,7 @@ namespace BadBalatro
 
                 playButton.Enabled = false;
                 canSelect = false;
+                updateCardPosition();
                 plays--;
                 playlabel.Text = "plays: " + plays.ToString();
                 //MR
@@ -457,8 +487,8 @@ namespace BadBalatro
 
 
                 int y = hand.IndexOf(x);
-
                 cards[y].setIsSelected(false);
+                updateCardPosition();
                 moveTolist(y, hand, discardPile);
 
                 //draw new cards
