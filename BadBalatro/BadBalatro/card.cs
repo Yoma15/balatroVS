@@ -13,15 +13,13 @@ namespace BadBalatro
         private int number;
         //the suite of the card
         private string suite;
-        bool isScoring;
 
         private PictureBox cardPictureBox;
         //if the card is currenlty selected to be apart of play
-        private bool isSelected;
+        private bool isSelected = false;
         //how many chips the player will get when scored
         private int chipAmount;
 
-        private bool willScore = false;
 
         
 
@@ -69,13 +67,7 @@ namespace BadBalatro
 
             
         }
-        public void setIsScored(bool scoring)
-        {
-            isScoring = scoring;
-            // MessageBox.Show(isSelected.ToString());
-
-
-        }
+        
         public void setPictureBox(PictureBox box)
         {
             cardPictureBox = box;
@@ -97,7 +89,6 @@ namespace BadBalatro
 
         public bool getIsSelected() { return isSelected;}
 
-        public bool getIsScoring() { return isScoring; }
 
         
 

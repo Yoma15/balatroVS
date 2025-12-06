@@ -46,7 +46,7 @@ namespace BadBalatro
         int roundChips = 0;
         int roundMult = 0;
 
-        int cardBoxY = 386;
+        int cardBoxY;
 
 
 
@@ -79,7 +79,14 @@ namespace BadBalatro
         //Function called as it loads for the user
         private void BadBalatro_Load(object sender, EventArgs e)
         {
+            cardBoxY = cardBox0.Location.Y;
             //BN
+            try { 
+            scoringRulesBox.ImageLocation = ("scoring rules.png");
+            }catch(Exception ex)
+            {
+                MessageBox.Show("scoring Rules failed to load in code");
+            }
             intializeDeck();
 
             cardPictureBoxes.Add(cardBox0); cardPictureBoxes.Add(cardBox1); cardPictureBoxes.Add(cardBox2); cardPictureBoxes.Add(cardBox3); cardPictureBoxes.Add(cardBox4); cardPictureBoxes.Add(cardBox5); cardPictureBoxes.Add(cardBox6); cardPictureBoxes.Add(cardBox7);
@@ -93,8 +100,8 @@ namespace BadBalatro
             for (int i = 0; i < maxCards; i++)
             {
                 moveTolist(i, deck, hand);
-                updateBox(handListBox, hand);
-                updateBox(deckListBox, deck);
+                //updateBox(handListBox, hand);
+                //updateBox(deckListBox, deck);
                 //handListBox.Items.Add(hand[i]);
             }
             for (int i = 0; i < maxCards; i++)
@@ -103,6 +110,7 @@ namespace BadBalatro
                 cards[i].setPictureBox(cardPictureBoxes[i]);
             }
             updateCardClasses();
+            updateCardPosition();
             setCardImage();
 
         }
@@ -145,15 +153,15 @@ namespace BadBalatro
                 switch (x)
                 {
                     case 0:
-                        //currentSuite = "Hearts";
-                        continue;
+                        currentSuite = "Hearts";
+                        
                         break;
                     case 1:
                         currentSuite = "Diamonds";
                         break;
                     case 2:
-                        //currentSuite = "Spades";
-                        continue;
+                        currentSuite = "Spades";
+                        
                         break;
                     case 3:
                         currentSuite = "Clubs";
@@ -161,7 +169,7 @@ namespace BadBalatro
                         break;
                 }
                 //sets the card number and adds the two together into  the deck
-                for (int y = 1; y <= 10/*13*/; y++)
+                for (int y = 1; y <= 13; y++)
                 {
                     deck.Add(currentSuite + "," + y);
                     currentIndex++;
@@ -180,15 +188,15 @@ namespace BadBalatro
                 if (canSelect == true)
                 {
 
-                    if (cardPictureBoxes[i].Location.Y == cardBoxY - 35 && cards[i].getIsSelected() == false)
+                    if (cards[i].getIsSelected() == false)
                     {
-                        // MessageBox.Show("if ran");
+                        //MessageBox.Show("if ran");
 
                         cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY);
                     }
-                    else if (cardPictureBoxes[i].Location.Y == cardBoxY && cards[i].getIsSelected() == true)
+                    else if (cards[i].getIsSelected() == true)
                     {
-                        // MessageBox.Show("else if ran");
+                         //MessageBox.Show("else if ran");
                         cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY - 35);
                     }
 
@@ -300,9 +308,8 @@ namespace BadBalatro
                 }
             }
 
-            // Update visual list boxes to reflect changes
-            updateBox(handListBox, hand);
-            updateBox(deckListBox, deck);
+            // Update visual cards to reflect changes
+            setCardImage();
 
             updateCardClasses();
             //MR
@@ -317,7 +324,7 @@ namespace BadBalatro
             discardLabel.Text = "discards: " + discards.ToString();
             canSelect = true;
             playButton.Enabled = true;
-            setCardImage();
+            
         }
 
 
@@ -442,7 +449,6 @@ namespace BadBalatro
 
                     roundChips += selectedCards[i].getChips();
                 }
-                //call joker classes
 
 
 
@@ -451,7 +457,7 @@ namespace BadBalatro
 
                 chips += totalPlayScore;
                 chipLabel.Text = $"Chips: {chips}";
-                MessageBox.Show($"Hand: {handType}\nScore: {totalPlayScore}");
+                //MessageBox.Show($"Hand: {handType}\nScore: {totalPlayScore}");
                 discardSelected(true);
 
                 roundChips = 0;
@@ -496,8 +502,8 @@ namespace BadBalatro
                 {
                     hand.Insert(y, deck[0]);
                     deck.RemoveAt(0);
-                    updateBox(deckListBox, deck);
-                    updateBox(handListBox, hand);
+                    //updateBox(deckListBox, deck);
+                    //updateBox(handListBox, hand);
                     updateCardClasses();
                 }
             }
@@ -542,7 +548,7 @@ namespace BadBalatro
                         cards[index].setIsSelected(true);
 
                         //cardPictureBoxes[index].BackColor = Color.Blue;
-                        cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y - yFactor);
+                        //cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y - yFactor);
                         //cardPictureBoxes[index].bo
                         //MessageBox.Show(cards[index].getCardString());
                         selectedCards.Add(cards[index]);
@@ -559,12 +565,12 @@ namespace BadBalatro
                 {
                     cards[index].setIsSelected(false);
                     //cardPictureBoxes[index].BackColor = Color.White;
-                    cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y + yFactor);
+                   // cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y + yFactor);
 
                     selectedCards.Remove(cards[index]);
 
                 }
-
+                updateCardPosition();
                 handLabel.Text = $"{scoringFramework()} \n C: {roundChips} X M: {roundMult} ";
 
 
@@ -671,10 +677,12 @@ namespace BadBalatro
         
             {
                 string rules = "Rules:\n" +
-                               "1. Each game consists of multiple rounds where players must defeat three types of blinds, small, big, and boss blinds.\n" +
-                               "2.You must form a 5-card poker hand in order to achieve the target score(chips).\n" +
-                               "3.When you reach the target score, you can proceed to the next round.\n" + 
-                               "4.You can discard 5 cards per round and trade it in for another card in order to create better hands.\n";
+                               "1. Each game consists of multiple rounds where the difficulty increases each time\n" +
+                               "2.You can play a poker hand up to 5-cards at a time in order to achieve the target score(chips).\n" +
+                               "3 Poker hands and scores can be found to the right of the window\n" +
+                               "4.When you reach the target score, you can proceed to the next round.\n" + 
+                               "5.You can discard up to 5 cards 4 times per round and trade those cards for additional cards in order to create better hands.\n"+
+                               "6. Each round you can only discard 4 hands and play 4 hands if you run out of plays you lose so use each strategically ";
 
                 MessageBox.Show(rules, "Rules", MessageBoxButtons.OK, MessageBoxIcon.Information);
             };
