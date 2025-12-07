@@ -62,17 +62,33 @@ namespace BadBalatro
 
 
         }
-
-        // Function that pdates cardBox image based on value taken from list when called 
+        // Function that updates cardBox image based on value taken from list when called 
         public void setCardImage()
         {
-
-            for (int i = 0; i < hand.Count; i++)
-            {
+             for (int i = 0; i < hand.Count; i++)
+             {
                 int currentNumber = cards[i].getNumber();
                 string currentSuit = cards[i].getSuite();
-                cardPictureBoxes[i].ImageLocation = ($"CardSprites\\{currentSuit}\\{currentNumber}{currentSuit}.png");
-                cardPictureBoxes[i].Load();
+
+                string imagePath = $"CardSprites\\{currentSuit}\\{currentNumber}{currentSuit}.png";
+
+                if (System.IO.File.Exists(imagePath))
+                {
+                    try
+                    {
+                        cardPictureBoxes[i].ImageLocation = imagePath;
+                        cardPictureBoxes[i].Load();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"File exists but failed to load: {imagePath}");
+                    }
+                }
+                else
+                {
+                    // This prevents the "File Not Found" crash
+                   
+                }
             }
         }
 
@@ -276,15 +292,15 @@ namespace BadBalatro
         {
             MessageBox.Show("Round Complete! Starting Round " + (round + 1));
 
-            // *the round variable will have to increase by one
+            // the round variable will have to increase by one
             round++;
 
-            // *then you will need to update the target bind variable and the text box to match.
+            // then you will need to update the target bind variable and the text box to match.
             // You can do this by making the targetChips = calculateTargetChips
             targetChip = calculatetargetChip();
             targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
 
-            // *then move any cards from the discard pile and the hand back into the deck 
+            // then move any cards from the discard pile and the hand back into the deck 
             // Move hand to deck
             while (hand.Count > 0)
             {
@@ -296,10 +312,10 @@ namespace BadBalatro
                 moveTolist(0, discardPile, deck);
             }
 
-            // *shuffle the deck 
+            // shuffle the deck 
             deck = shuffle(deck, 4);
 
-            // *then draw the players 8 more cards
+            // then draw the players 8 more cards
             for (int i = 0; i < maxCards; i++)
             {
                 if (deck.Count > 0)
