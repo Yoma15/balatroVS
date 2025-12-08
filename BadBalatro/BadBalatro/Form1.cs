@@ -200,7 +200,7 @@ namespace BadBalatro
         {
             // MessageBox.Show("function run ");
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++) // Looks through all cards in hand 
             {
                 if (canSelect == true)
                 {
@@ -209,19 +209,19 @@ namespace BadBalatro
                     {
                         //MessageBox.Show("if ran");
 
-                        cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY);
+                        cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY); // Resets card position if card is no longer selected 
                     }
                     else if (cards[i].getIsSelected() == true)
                     {
                          //MessageBox.Show("else if ran");
-                        cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY - 35);
+                        cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY - 35); // Moves card up if selected 
                     }
 
                 }
 
                 else
                 {
-                    cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY);
+                    cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY); // Resets position when card is played/discarded 
                 }
             }
         }
