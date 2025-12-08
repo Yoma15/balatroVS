@@ -135,16 +135,7 @@ namespace BadBalatro
 
 
 
-        //takes a list and populate all of it into a listbox 
-        //string list overload
-        public void updateBox(ListBox box, List<string> list)
-        {
-            box.Items.Clear();
-            for (int i = 0; i < list.Count; i++)
-            {
-                box.Items.Add(list[i]);
-            }
-        }
+       
 
 
 
@@ -229,6 +220,7 @@ namespace BadBalatro
 
         //Shuffles and returns a list that you give it. Shuffle Value is how many times the program will shuffle the list
         //use by making the list eual it like so, deckList = shuffle(deckList,2)
+        //BN
         public List<string> shuffle(List<string> list, int shuffleValue)
         {
             //used for seeded random
@@ -262,6 +254,7 @@ namespace BadBalatro
 
         //Makes the card classes match with the deck List and layout  
         //call this anytime a card is getting played/discared so the new ones will take there place
+        //BN
         public void updateCardClasses()
         {
             //looks at every card 
@@ -289,6 +282,7 @@ namespace BadBalatro
         }
 
         // New function to handle Next Round Logic
+        //MR
         public void startNextRound()
         {
             MessageBox.Show("Round Complete! Starting Round " + (round + 1));
@@ -443,7 +437,7 @@ namespace BadBalatro
             roundChips = 5; roundMult = 1;
             return "High Card";
         }
-
+        //BN
         private void playButton_click(object sender, EventArgs e)
         {
             if (selectedCards.Count > 0)
@@ -478,6 +472,8 @@ namespace BadBalatro
                 discardSelected(true);
 
                 roundChips = 0;
+
+                //MK
                 canSelect = true;
                 playButton.Enabled = true;
 
@@ -527,6 +523,7 @@ namespace BadBalatro
             selectedCards.Clear();
             setCardImage();
         }
+        //TK
         private void discardButton_Click(object sender, EventArgs e)
         {
 
@@ -551,6 +548,7 @@ namespace BadBalatro
 
 
         // Card clicking and selection  handling
+        //BN
         void cardSelection(int index)
         {
             int yFactor = 35;
@@ -636,53 +634,6 @@ namespace BadBalatro
         }
 
 
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            selectedCards.Clear();
-            for (int i = 0; i < 5; i++)
-            {
-
-                selectedCards.Add(new Card());
-
-            }
-            string[] split = testBox.Text.Split(',');
-            selectedCards[0].setSuite(split[0]);
-            selectedCards[0].setNumber(int.Parse(split[1]));
-
-            split = textBox1.Text.Split(",");
-            selectedCards[1].setSuite(split[0]);
-            selectedCards[1].setNumber(int.Parse(split[1]));
-
-            split = textBox2.Text.Split(",");
-            selectedCards[2].setSuite(split[0]);
-            selectedCards[2].setNumber(int.Parse(split[1]));
-
-            split = textBox3.Text.Split(",");
-            selectedCards[3].setSuite(split[0]);
-            selectedCards[3].setNumber(int.Parse(split[1]));
-
-            split = textBox4.Text.Split(",");
-            selectedCards[4].setSuite(split[0]);
-            selectedCards[4].setNumber(int.Parse(split[1]));
-            roundChips = 0; roundMult = 0;
-
-
-
-            //calculate total points
-            handType = scoringFramework();
-
-            for (int i = 0; i < selectedCards.Count; i++)
-            {
-
-                roundChips += selectedCards[i].getChips();
-            }
-
-            int totalPlayScore = roundChips * roundMult;
-
-            handLabel.Text = $"{handType}, C: {roundChips}, M: {roundMult} total {totalPlayScore}";
-
-        }
 
         private void handListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
