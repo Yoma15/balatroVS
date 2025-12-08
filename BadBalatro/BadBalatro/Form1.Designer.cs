@@ -231,9 +231,9 @@
             roundLabel.AutoSize = true;
             roundLabel.Location = new Point(329, 32);
             roundLabel.Name = "roundLabel";
-            roundLabel.Size = new Size(68, 25);
+            roundLabel.Size = new Size(83, 25);
             roundLabel.TabIndex = 25;
-            roundLabel.Text = "Round:";
+            roundLabel.Text = "Round: 1";
             // 
             // chipMultlabel
             // 

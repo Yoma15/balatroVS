@@ -33,11 +33,8 @@ namespace BadBalatro
             suite = Suite;
         }
         //MR
-        public int GetNumber()
-        {
-            return number;
-        }
-
+        public int GetNumber() { return number; }
+        
         public void setNumber(int Number)
         {
             this.number = Number;

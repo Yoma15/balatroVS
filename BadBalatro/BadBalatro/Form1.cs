@@ -294,6 +294,7 @@ namespace BadBalatro
             // You can do this by making the targetChips = calculateTargetChips
             targetChip = calculatetargetChip();
             targetBindLabel.Text = "Round Target Bind: " + targetChip.ToString();
+            roundLabel.Text = "Round: " + round;
 
             // then move any cards from the discard pile and the hand back into the deck 
             // Move hand to deck
