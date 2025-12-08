@@ -62,7 +62,7 @@ namespace BadBalatro
 
 
         }
-        //MR
+        //MR & TK
         // Function that updates cardBox image based on value taken from list when called 
         public void setCardImage()
         {
