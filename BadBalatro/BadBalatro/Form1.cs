@@ -334,6 +334,7 @@ namespace BadBalatro
             chipLabel.Text = $"Chips: {chips}";
             playlabel.Text = "plays: " + plays.ToString();
             discardLabel.Text = "discards: " + discards.ToString();
+            handLabel.Text = $"current hand: N/A";
             canSelect = true;
             playButton.Enabled = true;
             
@@ -466,6 +467,7 @@ namespace BadBalatro
 
                 //calculate total points
                 int totalPlayScore = roundChips * roundMult;
+                
 
                 chips += totalPlayScore;
                 chipLabel.Text = $"Chips: {chips}";
@@ -473,6 +475,9 @@ namespace BadBalatro
                 discardSelected(true);
 
                 roundChips = 0;
+                roundMult = 0;
+                handLabel.Text = $"current hand: N/A";
+                MessageBox.Show("scored " + totalPlayScore);
 
                 //MK
                 canSelect = true;
@@ -538,6 +543,8 @@ namespace BadBalatro
 
                 //unselect cards 
                 discardSelected(true);
+                handLabel.Text = $"current hand: N/A";
+
                 setCardImage();
             }
             else
@@ -587,7 +594,7 @@ namespace BadBalatro
 
                 }
                 updateCardPosition();
-                handLabel.Text = $"{scoringFramework()} \n C: {roundChips} X M: {roundMult} ";
+                handLabel.Text = $"current hand: {scoringFramework()} \n C: {roundChips} X M: {roundMult} ";
 
 
             }
