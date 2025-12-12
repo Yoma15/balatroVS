@@ -66,8 +66,8 @@ namespace BadBalatro
         // Function that updates cardBox image based on value taken from list when called 
         public void setCardImage()
         {
-             for (int i = 0; i < hand.Count; i++)
-             {
+            for (int i = 0; i < hand.Count; i++)
+            {
                 int currentNumber = cards[i].getNumber();
                 string currentSuit = cards[i].getSuite();
 
@@ -88,7 +88,7 @@ namespace BadBalatro
                 else
                 {
                     // This prevents the "File Not Found" crash
-                   
+
                 }
             }
         }
@@ -98,12 +98,15 @@ namespace BadBalatro
         {
             cardBoxY = cardBox0.Location.Y;
             //BN
-            try { 
-            scoringRulesBox.ImageLocation = ("scoring rules.png");
-            }catch(Exception ex)
+          /*  try
+            {
+                scoringRulesBox.ImageLocation = ("scoring rules.png");
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("scoring Rules failed to load in code");
             }
+          */
             intializeDeck();
 
             cardPictureBoxes.Add(cardBox0); cardPictureBoxes.Add(cardBox1); cardPictureBoxes.Add(cardBox2); cardPictureBoxes.Add(cardBox3); cardPictureBoxes.Add(cardBox4); cardPictureBoxes.Add(cardBox5); cardPictureBoxes.Add(cardBox6); cardPictureBoxes.Add(cardBox7);
@@ -135,7 +138,7 @@ namespace BadBalatro
 
 
 
-       
+
 
 
 
@@ -162,14 +165,14 @@ namespace BadBalatro
                 {
                     case 0:
                         currentSuite = "Hearts";
-                        
+
                         break;
                     case 1:
                         currentSuite = "Diamonds";
                         break;
                     case 2:
                         currentSuite = "Spades";
-                        
+
                         break;
                     case 3:
                         currentSuite = "Clubs";
@@ -204,7 +207,7 @@ namespace BadBalatro
                     }
                     else if (cards[i].getIsSelected() == true)
                     {
-                         //MessageBox.Show("else if ran");
+                        //MessageBox.Show("else if ran");
                         cardPictureBoxes[i].Location = new Point(cardPictureBoxes[i].Location.X, cardBoxY - 35); // Moves card up if selected 
                     }
 
@@ -337,7 +340,7 @@ namespace BadBalatro
             handLabel.Text = $"current hand: N/A";
             canSelect = true;
             playButton.Enabled = true;
-            
+
         }
 
 
@@ -467,7 +470,7 @@ namespace BadBalatro
 
                 //calculate total points
                 int totalPlayScore = roundChips * roundMult;
-                
+
 
                 chips += totalPlayScore;
                 chipLabel.Text = $"Chips: {chips}";
@@ -588,7 +591,7 @@ namespace BadBalatro
                 {
                     cards[index].setIsSelected(false);
                     //cardPictureBoxes[index].BackColor = Color.White;
-                   // cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y + yFactor);
+                    // cardPictureBoxes[index].Location = new Point(cardPictureBoxes[index].Location.X, cardPictureBoxes[index].Location.Y + yFactor);
 
                     selectedCards.Remove(cards[index]);
 
@@ -650,19 +653,25 @@ namespace BadBalatro
         //HH
         private void Rules_Click(object sender, EventArgs e)
         {
-        
+
             {
                 string rules = "Rules:\n" +
                                "1. Each game consists of multiple rounds where the difficulty increases each time\n" +
                                "2.You can play a poker hand up to 5-cards at a time in order to achieve the target score(chips).\n" +
                                "3 Poker hands and scores can be found to the right of the window\n" +
-                               "4.When you reach the target score, you can proceed to the next round.\n" + 
-                               "5.You can discard up to 5 cards 4 times per round and trade those cards for additional cards in order to create better hands.\n"+
+                               "4.When you reach the target score, you can proceed to the next round.\n" +
+                               "5.You can discard up to 5 cards 4 times per round and trade those cards for additional cards in order to create better hands.\n" +
                                "6. Each round you can only discard 4 hands and play 4 hands if you run out of plays you lose so use each strategically ";
 
                 MessageBox.Show(rules, "Rules", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            };
+            }
+            ;
 
+
+        }
+
+        private void roundLabel_Click(object sender, EventArgs e)
+        {
 
         }
     }
