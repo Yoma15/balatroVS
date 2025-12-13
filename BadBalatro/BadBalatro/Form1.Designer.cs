@@ -63,7 +63,7 @@
             // 
             cardBox0.Image = (Image)resources.GetObject("cardBox0.Image");
             cardBox0.Location = new Point(139, 294);
-            cardBox0.Margin = new Padding(1, 1, 1, 1);
+            cardBox0.Margin = new Padding(1);
             cardBox0.Name = "cardBox0";
             cardBox0.Size = new Size(145, 200);
             cardBox0.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -75,7 +75,7 @@
             // 
             cardBox2.Image = (Image)resources.GetObject("cardBox2.Image");
             cardBox2.Location = new Point(453, 294);
-            cardBox2.Margin = new Padding(1, 1, 1, 1);
+            cardBox2.Margin = new Padding(1);
             cardBox2.Name = "cardBox2";
             cardBox2.Size = new Size(145, 200);
             cardBox2.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -109,7 +109,7 @@
             // 
             cardBox4.Image = (Image)resources.GetObject("cardBox4.Image");
             cardBox4.Location = new Point(769, 294);
-            cardBox4.Margin = new Padding(1, 1, 1, 1);
+            cardBox4.Margin = new Padding(1);
             cardBox4.Name = "cardBox4";
             cardBox4.Size = new Size(145, 200);
             cardBox4.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -121,7 +121,7 @@
             // 
             cardBox3.Image = (Image)resources.GetObject("cardBox3.Image");
             cardBox3.Location = new Point(611, 294);
-            cardBox3.Margin = new Padding(1, 1, 1, 1);
+            cardBox3.Margin = new Padding(1);
             cardBox3.Name = "cardBox3";
             cardBox3.Size = new Size(145, 200);
             cardBox3.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -134,7 +134,7 @@
             cardBox1.BackColor = SystemColors.Control;
             cardBox1.Image = (Image)resources.GetObject("cardBox1.Image");
             cardBox1.Location = new Point(296, 294);
-            cardBox1.Margin = new Padding(1, 1, 1, 1);
+            cardBox1.Margin = new Padding(1);
             cardBox1.Name = "cardBox1";
             cardBox1.Size = new Size(145, 200);
             cardBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -146,7 +146,7 @@
             // 
             cardBox7.Image = (Image)resources.GetObject("cardBox7.Image");
             cardBox7.Location = new Point(1240, 294);
-            cardBox7.Margin = new Padding(1, 1, 1, 1);
+            cardBox7.Margin = new Padding(1);
             cardBox7.Name = "cardBox7";
             cardBox7.Size = new Size(145, 200);
             cardBox7.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -158,7 +158,7 @@
             // 
             cardBox6.Image = (Image)resources.GetObject("cardBox6.Image");
             cardBox6.Location = new Point(1083, 294);
-            cardBox6.Margin = new Padding(1, 1, 1, 1);
+            cardBox6.Margin = new Padding(1);
             cardBox6.Name = "cardBox6";
             cardBox6.Size = new Size(145, 200);
             cardBox6.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -170,7 +170,7 @@
             // 
             cardBox5.Image = (Image)resources.GetObject("cardBox5.Image");
             cardBox5.Location = new Point(926, 294);
-            cardBox5.Margin = new Padding(1, 1, 1, 1);
+            cardBox5.Margin = new Padding(1);
             cardBox5.Name = "cardBox5";
             cardBox5.Size = new Size(145, 200);
             cardBox5.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -215,7 +215,7 @@
             // 
             playButton.BackColor = Color.FromArgb(192, 255, 192);
             playButton.Location = new Point(566, 227);
-            playButton.Margin = new Padding(1, 1, 1, 1);
+            playButton.Margin = new Padding(1);
             playButton.Name = "playButton";
             playButton.Size = new Size(78, 21);
             playButton.TabIndex = 16;
@@ -227,7 +227,7 @@
             // 
             discardButton.BackColor = Color.FromArgb(255, 128, 128);
             discardButton.Location = new Point(678, 228);
-            discardButton.Margin = new Padding(1, 1, 1, 1);
+            discardButton.Margin = new Padding(1);
             discardButton.Name = "discardButton";
             discardButton.Size = new Size(78, 21);
             discardButton.TabIndex = 17;
@@ -263,7 +263,7 @@
             // 
             panel1.BackColor = SystemColors.ActiveCaptionText;
             panel1.Location = new Point(139, 512);
-            panel1.Margin = new Padding(2, 2, 2, 2);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
             panel1.Size = new Size(1246, 18);
             panel1.TabIndex = 27;
@@ -272,7 +272,7 @@
             // 
             rulesButton.BackColor = Color.FromArgb(192, 255, 255);
             rulesButton.Location = new Point(877, 228);
-            rulesButton.Margin = new Padding(1, 1, 1, 1);
+            rulesButton.Margin = new Padding(1);
             rulesButton.Name = "rulesButton";
             rulesButton.Size = new Size(81, 22);
             rulesButton.TabIndex = 28;
@@ -316,9 +316,9 @@
             Controls.Add(playlabel);
             Controls.Add(cardBox2);
             Controls.Add(cardBox0);
-            Margin = new Padding(1, 1, 1, 1);
+            Margin = new Padding(1);
             Name = "BadBalatro";
-            Text = "Form1";
+            Text = "Bad Balatro";
             Load += BadBalatro_Load;
             ((System.ComponentModel.ISupportInitialize)cardBox0).EndInit();
             ((System.ComponentModel.ISupportInitialize)cardBox2).EndInit();
