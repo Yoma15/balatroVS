@@ -98,15 +98,15 @@ namespace BadBalatro
         {
             cardBoxY = cardBox0.Location.Y;
             //BN
-          /*  try
-            {
-                scoringRulesBox.ImageLocation = ("scoring rules.png");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("scoring Rules failed to load in code");
-            }
-          */
+            /*  try
+              {
+                  scoringRulesBox.ImageLocation = ("scoring rules.png");
+              }
+              catch (Exception ex)
+              {
+                  MessageBox.Show("scoring Rules failed to load in code");
+              }
+            */
             intializeDeck();
 
             cardPictureBoxes.Add(cardBox0); cardPictureBoxes.Add(cardBox1); cardPictureBoxes.Add(cardBox2); cardPictureBoxes.Add(cardBox3); cardPictureBoxes.Add(cardBox4); cardPictureBoxes.Add(cardBox5); cardPictureBoxes.Add(cardBox6); cardPictureBoxes.Add(cardBox7);
@@ -288,7 +288,6 @@ namespace BadBalatro
         //MR
         public void startNextRound()
         {
-            MessageBox.Show("Round Complete! Starting Round " + (round + 1));
 
             // the round variable will have to increase by one
             round++;
@@ -489,17 +488,57 @@ namespace BadBalatro
 
                 if (chips >= targetChip)
                 {
+                    MessageBox.Show("Round Complete! Starting Round " + (round + 1));
                     startNextRound();
                 }
                 else if (plays == 0)
                 {
                     MessageBox.Show("Game Over! You ran out of plays.");
+                    round = 0;
+                    //reset
+
+                    startNextRound();
+
+                    
+                   
+
+
+
                 }
 
                 //targetChip = calculatetargetChip();
                 //round ends when player reaches goal points
                 //when play button is clicked, everything will be run. We will need  to double check the logic of a player wining a round
                 setCardImage();
+            }
+        }
+
+        void reset()
+        {
+            plays = 4;
+            discards = 4;
+            selectedCards.Clear();
+
+            while (hand.Count > 0)
+            {
+                moveTolist(0, hand, deck);
+            }
+            // Move discard pile to deck
+            while (discardPile.Count > 0)
+            {
+                moveTolist(0, discardPile, deck);
+            }
+
+            // shuffle the deck 
+            deck = shuffle(deck, 4);
+
+            // then draw the players 8 more cards
+            for (int i = 0; i < maxCards; i++)
+            {
+                if (deck.Count > 0)
+                {
+                    moveTolist(0, deck, hand);
+                }
             }
         }
 
@@ -672,6 +711,43 @@ namespace BadBalatro
 
         private void roundLabel_Click(object sender, EventArgs e)
         {
+
+        }
+
+        //HH
+        private void scoringRulesButton_Click(object sender, EventArgs e)
+        {
+
+
+            string rules = "Rules:\n" +
+                           "straight flush \t\t100 Chips X 8 MULT" +
+                           "\n5 cards consecutive rank and all of the same suite " +
+                           "\nEX: D7,D8,D9,JackD,queenD " +
+                           "\nfour of a kind \t\t60 Chips X 7 MULT" +
+                           "\n4 cards of the same Rank " +
+                           "\nScored: D5, H5,C5,S5 " +
+                           "\nfull house \t\t40 Chips X 4 MULT" +
+                           "\nthree of a kind and a pair " +
+                           "\nEX: D8,H8,C8,    D2, H2\nflush \t\t\t35 Chips X 4 MULT" +
+                           "\n5 cards of the same Suite " +
+                           "\nEX: H9, H5,KingH, AceH, H3" +
+                           "\nstraight \t\t30 Chips X 4 MULT" +
+                           "\n5 cards of Consecutive Rank" +
+                           "\nEX: H2,D3,D4,C5,S6" +
+                           "\nthree of a kind \t30 Chips X 3 MULT" +
+                           "\n3 cards of the same rank " +
+                           "\n EX D2,H2,S2 " +
+                           "\ntwo pair \t\t20 Chips X 2 MULT" +
+                           "\n2 pairs of cards " +
+                           "\nEX: D2, H2, \t S4, S4 " +
+                           "\npair \t\t\t10 Chips X 2 MULT" +
+                           "\ntwo cards of the same rank" +
+                           "\n: JackD JackC " +
+                           "\nhigh card \t\t 05 Chips X 1 MULT" +
+                           "\nif none of the rules above are met the highest card will be scored" +
+                           "\nEX: D2, jackH kingH, S3, S4, C5n";
+
+            MessageBox.Show(rules);
 
         }
     }

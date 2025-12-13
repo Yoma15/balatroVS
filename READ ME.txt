@@ -1,0 +1,24 @@
+Start the Game: Launch the application. You will be dealt a hand of cards. 
+
+Select Cards: Click on cards in your hand to select them. Selected cards will pop up. You may select up to 5 cards. 
+
+Scoring: Your played hand will be scored based on the cards' value and the type of hand. This score is added to your total. 
+
+Winning/Losing: 
+
+If your total score meets the target, you advance to the next round. 
+
+If you run out of "Hands" to play before reaching the target score, the game is over. 
+
+for more information on the rules pleases click on the rules and or the scoring rules button
+
+MARK OF THE WEB ERROR
+Sometimes when downloading and launching the project from online sources like brightspace
+A error about the mark of the web will come up
+
+Its possible that it is my antivirus or something else blocking it
+
+IT IS A ERROR ON VS SIDE. It is not due to our code
+
+
+I have only been able to fix this error by unblocking the Resx file through Powershell/ Command prompt

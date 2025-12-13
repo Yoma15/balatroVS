@@ -45,10 +45,9 @@
             playButton = new Button();
             discardButton = new Button();
             roundLabel = new Label();
-            chipMultlabel = new Label();
             panel1 = new Panel();
             rulesButton = new Button();
-            rulesLabel = new Label();
+            scoringRulesButton = new Button();
             ((System.ComponentModel.ISupportInitialize)cardBox0).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)cardBox4).BeginInit();
@@ -62,10 +61,10 @@
             // cardBox0
             // 
             cardBox0.Image = (Image)resources.GetObject("cardBox0.Image");
-            cardBox0.Location = new Point(139, 294);
-            cardBox0.Margin = new Padding(1);
+            cardBox0.Location = new Point(199, 490);
+            cardBox0.Margin = new Padding(1, 2, 1, 2);
             cardBox0.Name = "cardBox0";
-            cardBox0.Size = new Size(145, 200);
+            cardBox0.Size = new Size(207, 333);
             cardBox0.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox0.TabIndex = 0;
             cardBox0.TabStop = false;
@@ -74,10 +73,10 @@
             // cardBox2
             // 
             cardBox2.Image = (Image)resources.GetObject("cardBox2.Image");
-            cardBox2.Location = new Point(453, 294);
-            cardBox2.Margin = new Padding(1);
+            cardBox2.Location = new Point(647, 490);
+            cardBox2.Margin = new Padding(1, 2, 1, 2);
             cardBox2.Name = "cardBox2";
-            cardBox2.Size = new Size(145, 200);
+            cardBox2.Size = new Size(207, 333);
             cardBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox2.TabIndex = 1;
             cardBox2.TabStop = false;
@@ -87,10 +86,9 @@
             // 
             playlabel.AutoSize = true;
             playlabel.BackColor = Color.FromArgb(128, 255, 128);
-            playlabel.Location = new Point(579, 197);
-            playlabel.Margin = new Padding(2, 0, 2, 0);
+            playlabel.Location = new Point(827, 328);
             playlabel.Name = "playlabel";
-            playlabel.Size = new Size(37, 15);
+            playlabel.Size = new Size(57, 25);
             playlabel.TabIndex = 5;
             playlabel.Text = "plays:";
             // 
@@ -98,20 +96,19 @@
             // 
             discardLabel.AutoSize = true;
             discardLabel.BackColor = Color.Red;
-            discardLabel.Location = new Point(687, 197);
-            discardLabel.Margin = new Padding(2, 0, 2, 0);
+            discardLabel.Location = new Point(981, 328);
             discardLabel.Name = "discardLabel";
-            discardLabel.Size = new Size(54, 15);
+            discardLabel.Size = new Size(83, 25);
             discardLabel.TabIndex = 6;
             discardLabel.Text = "Discards:";
             // 
             // cardBox4
             // 
             cardBox4.Image = (Image)resources.GetObject("cardBox4.Image");
-            cardBox4.Location = new Point(769, 294);
-            cardBox4.Margin = new Padding(1);
+            cardBox4.Location = new Point(1099, 490);
+            cardBox4.Margin = new Padding(1, 2, 1, 2);
             cardBox4.Name = "cardBox4";
-            cardBox4.Size = new Size(145, 200);
+            cardBox4.Size = new Size(207, 333);
             cardBox4.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox4.TabIndex = 8;
             cardBox4.TabStop = false;
@@ -120,10 +117,10 @@
             // cardBox3
             // 
             cardBox3.Image = (Image)resources.GetObject("cardBox3.Image");
-            cardBox3.Location = new Point(611, 294);
-            cardBox3.Margin = new Padding(1);
+            cardBox3.Location = new Point(873, 490);
+            cardBox3.Margin = new Padding(1, 2, 1, 2);
             cardBox3.Name = "cardBox3";
-            cardBox3.Size = new Size(145, 200);
+            cardBox3.Size = new Size(207, 333);
             cardBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox3.TabIndex = 7;
             cardBox3.TabStop = false;
@@ -133,10 +130,10 @@
             // 
             cardBox1.BackColor = SystemColors.Control;
             cardBox1.Image = (Image)resources.GetObject("cardBox1.Image");
-            cardBox1.Location = new Point(296, 294);
-            cardBox1.Margin = new Padding(1);
+            cardBox1.Location = new Point(423, 490);
+            cardBox1.Margin = new Padding(1, 2, 1, 2);
             cardBox1.Name = "cardBox1";
-            cardBox1.Size = new Size(145, 200);
+            cardBox1.Size = new Size(207, 333);
             cardBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox1.TabIndex = 12;
             cardBox1.TabStop = false;
@@ -145,10 +142,10 @@
             // cardBox7
             // 
             cardBox7.Image = (Image)resources.GetObject("cardBox7.Image");
-            cardBox7.Location = new Point(1240, 294);
-            cardBox7.Margin = new Padding(1);
+            cardBox7.Location = new Point(1771, 490);
+            cardBox7.Margin = new Padding(1, 2, 1, 2);
             cardBox7.Name = "cardBox7";
-            cardBox7.Size = new Size(145, 200);
+            cardBox7.Size = new Size(207, 333);
             cardBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox7.TabIndex = 11;
             cardBox7.TabStop = false;
@@ -157,10 +154,10 @@
             // cardBox6
             // 
             cardBox6.Image = (Image)resources.GetObject("cardBox6.Image");
-            cardBox6.Location = new Point(1083, 294);
-            cardBox6.Margin = new Padding(1);
+            cardBox6.Location = new Point(1547, 490);
+            cardBox6.Margin = new Padding(1, 2, 1, 2);
             cardBox6.Name = "cardBox6";
-            cardBox6.Size = new Size(145, 200);
+            cardBox6.Size = new Size(207, 333);
             cardBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox6.TabIndex = 10;
             cardBox6.TabStop = false;
@@ -169,10 +166,10 @@
             // cardBox5
             // 
             cardBox5.Image = (Image)resources.GetObject("cardBox5.Image");
-            cardBox5.Location = new Point(926, 294);
-            cardBox5.Margin = new Padding(1);
+            cardBox5.Location = new Point(1323, 490);
+            cardBox5.Margin = new Padding(1, 2, 1, 2);
             cardBox5.Name = "cardBox5";
-            cardBox5.Size = new Size(145, 200);
+            cardBox5.Size = new Size(207, 333);
             cardBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             cardBox5.TabIndex = 9;
             cardBox5.TabStop = false;
@@ -182,10 +179,9 @@
             // 
             targetBindLabel.AutoSize = true;
             targetBindLabel.BackColor = Color.White;
-            targetBindLabel.Location = new Point(595, 78);
-            targetBindLabel.Margin = new Padding(2, 0, 2, 0);
+            targetBindLabel.Location = new Point(850, 130);
             targetBindLabel.Name = "targetBindLabel";
-            targetBindLabel.Size = new Size(111, 15);
+            targetBindLabel.Size = new Size(166, 25);
             targetBindLabel.TabIndex = 13;
             targetBindLabel.Text = "Round Target Bind: ";
             // 
@@ -193,10 +189,9 @@
             // 
             chipLabel.AutoSize = true;
             chipLabel.BackColor = Color.FromArgb(255, 255, 192);
-            chipLabel.Location = new Point(743, 131);
-            chipLabel.Margin = new Padding(2, 0, 2, 0);
+            chipLabel.Location = new Point(1061, 218);
             chipLabel.Name = "chipLabel";
-            chipLabel.Size = new Size(78, 15);
+            chipLabel.Size = new Size(116, 25);
             chipLabel.TabIndex = 14;
             chipLabel.Text = "Current chips";
             // 
@@ -204,20 +199,19 @@
             // 
             handLabel.AutoSize = true;
             handLabel.BackColor = Color.FromArgb(192, 192, 255);
-            handLabel.Location = new Point(611, 155);
-            handLabel.Margin = new Padding(2, 0, 2, 0);
+            handLabel.Location = new Point(873, 258);
             handLabel.Name = "handLabel";
-            handLabel.Size = new Size(78, 15);
+            handLabel.Size = new Size(116, 25);
             handLabel.TabIndex = 15;
             handLabel.Text = "current hand:";
             // 
             // playButton
             // 
             playButton.BackColor = Color.FromArgb(192, 255, 192);
-            playButton.Location = new Point(566, 227);
-            playButton.Margin = new Padding(1);
+            playButton.Location = new Point(809, 378);
+            playButton.Margin = new Padding(1, 2, 1, 2);
             playButton.Name = "playButton";
-            playButton.Size = new Size(78, 21);
+            playButton.Size = new Size(111, 35);
             playButton.TabIndex = 16;
             playButton.Text = "Play";
             playButton.UseVisualStyleBackColor = false;
@@ -226,10 +220,10 @@
             // discardButton
             // 
             discardButton.BackColor = Color.FromArgb(255, 128, 128);
-            discardButton.Location = new Point(678, 228);
-            discardButton.Margin = new Padding(1);
+            discardButton.Location = new Point(969, 380);
+            discardButton.Margin = new Padding(1, 2, 1, 2);
             discardButton.Name = "discardButton";
-            discardButton.Size = new Size(78, 21);
+            discardButton.Size = new Size(111, 35);
             discardButton.TabIndex = 17;
             discardButton.Text = "Discard";
             discardButton.UseVisualStyleBackColor = false;
@@ -240,66 +234,54 @@
             roundLabel.AutoSize = true;
             roundLabel.BackColor = Color.White;
             roundLabel.BorderStyle = BorderStyle.FixedSingle;
-            roundLabel.Location = new Point(624, 114);
-            roundLabel.Margin = new Padding(2, 0, 2, 0);
+            roundLabel.Location = new Point(891, 190);
             roundLabel.Name = "roundLabel";
-            roundLabel.Size = new Size(56, 17);
+            roundLabel.Size = new Size(85, 27);
             roundLabel.TabIndex = 25;
             roundLabel.Text = "Round: 1";
             roundLabel.Click += roundLabel_Click;
             // 
-            // chipMultlabel
-            // 
-            chipMultlabel.AutoSize = true;
-            chipMultlabel.BackColor = Color.FromArgb(255, 255, 192);
-            chipMultlabel.Location = new Point(877, 131);
-            chipMultlabel.Margin = new Padding(2, 0, 2, 0);
-            chipMultlabel.Name = "chipMultlabel";
-            chipMultlabel.Size = new Size(10, 15);
-            chipMultlabel.TabIndex = 26;
-            chipMultlabel.Text = ":";
-            // 
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveCaptionText;
-            panel1.Location = new Point(139, 512);
-            panel1.Margin = new Padding(2);
+            panel1.Location = new Point(199, 853);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1246, 18);
+            panel1.Size = new Size(1780, 30);
             panel1.TabIndex = 27;
             // 
             // rulesButton
             // 
             rulesButton.BackColor = Color.FromArgb(192, 255, 255);
-            rulesButton.Location = new Point(877, 228);
-            rulesButton.Margin = new Padding(1);
+            rulesButton.Location = new Point(1253, 380);
+            rulesButton.Margin = new Padding(1, 2, 1, 2);
             rulesButton.Name = "rulesButton";
-            rulesButton.Size = new Size(81, 22);
+            rulesButton.Size = new Size(116, 37);
             rulesButton.TabIndex = 28;
             rulesButton.Text = "Rules";
             rulesButton.UseVisualStyleBackColor = false;
             rulesButton.Click += Rules_Click;
             // 
-            // rulesLabel
+            // scoringRulesButton
             // 
-            rulesLabel.AutoSize = true;
-            rulesLabel.Location = new Point(247, 9);
-            rulesLabel.Margin = new Padding(2, 0, 2, 0);
-            rulesLabel.Name = "rulesLabel";
-            rulesLabel.Size = new Size(75, 15);
-            rulesLabel.TabIndex = 30;
-            rulesLabel.Text = "Scoring rules";
+            scoringRulesButton.BackColor = Color.FromArgb(192, 255, 255);
+            scoringRulesButton.Location = new Point(1401, 380);
+            scoringRulesButton.Margin = new Padding(1, 2, 1, 2);
+            scoringRulesButton.Name = "scoringRulesButton";
+            scoringRulesButton.Size = new Size(191, 37);
+            scoringRulesButton.TabIndex = 31;
+            scoringRulesButton.Text = "scoring Rules";
+            scoringRulesButton.UseVisualStyleBackColor = false;
+            scoringRulesButton.Click += scoringRulesButton_Click;
             // 
             // BadBalatro
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gray;
-            ClientSize = new Size(1638, 828);
-            Controls.Add(rulesLabel);
+            ClientSize = new Size(2340, 1266);
+            Controls.Add(scoringRulesButton);
             Controls.Add(rulesButton);
             Controls.Add(panel1);
-            Controls.Add(chipMultlabel);
             Controls.Add(roundLabel);
             Controls.Add(discardButton);
             Controls.Add(playButton);
@@ -316,7 +298,7 @@
             Controls.Add(playlabel);
             Controls.Add(cardBox2);
             Controls.Add(cardBox0);
-            Margin = new Padding(1);
+            Margin = new Padding(1, 2, 1, 2);
             Name = "BadBalatro";
             Text = "Bad Balatro";
             Load += BadBalatro_Load;
@@ -359,9 +341,8 @@
         private TextBox textBox3;
         private TextBox textBox4;
         private Label roundLabel;
-        private Label chipMultlabel;
         private Panel panel1;
         private Button rulesButton;
-        private Label rulesLabel;
+        private Button scoringRulesButton;
     }
 }
