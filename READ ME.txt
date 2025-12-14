@@ -12,13 +12,15 @@ If you run out of "Hands" to play before reaching the target score, the game is 
 
 for more information on the rules pleases click on the rules and or the scoring rules button
 
+Solution file can be found in: balatroVS/BadBalatro
+
 MARK OF THE WEB ERROR
 Sometimes when downloading and launching the project from online sources like brightspace
 A error about the mark of the web will come up
 
 Its possible that it is my antivirus or something else blocking it
 
-IT IS A ERROR ON VS SIDE. It is not due to our code
+IT IS A ERROR ON VS SIDE OR THE COMPUTER. It is not due to our code
 
 
 I have only been able to fix this error by unblocking the Resx file through Powershell/ Command prompt

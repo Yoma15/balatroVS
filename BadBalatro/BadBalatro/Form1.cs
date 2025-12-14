@@ -494,9 +494,9 @@ namespace BadBalatro
                 else if (plays == 0)
                 {
                     MessageBox.Show("Game Over! You ran out of plays.");
+                    //resets everything
                     round = 0;
-                    //reset
-
+                    
                     startNextRound();
 
                     
